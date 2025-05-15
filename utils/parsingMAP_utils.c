@@ -1,0 +1,55 @@
+#include "../header/cube3d.h"
+
+int	is_map_char(char c)
+{
+	return (c == '0' || c == '1' || c == ' ' || c == 'N' || c == 'S' || c == 'E'
+		|| c == 'W');
+}
+
+int	is_player_char(char c)
+{
+	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*node;
+
+	node = malloc(sizeof(t_list));
+	if (!node)
+		return (NULL);
+	node->content = content;
+	node->next = NULL;
+	return (node);
+}
+
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list *temp;
+
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	temp = *lst;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+}
+
+void	free_map(char **map)
+{
+	int	i = 0;
+
+	if (!map)
+		return ;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}

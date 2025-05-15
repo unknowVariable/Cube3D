@@ -1,0 +1,12 @@
+NO ./textures/chainsaw.xpm
+SO ./textures/chainsaw.xpm
+WE ./textures/chainsaw.xpm
+EA ./textures/chainsaw.xpm
+F 220,100,0
+C 30,200,255
+
+11111111111111 
+10110000000001
+10N00000000001
+10110000000001
+11111111111111
