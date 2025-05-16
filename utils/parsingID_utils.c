@@ -17,10 +17,14 @@ void set_config_field(t_config *c, char *id, char *line)
 {
     char *v = ft_strtrim(line, " \t\n");
     if (!v)
+	{
+		free(line);
         clean_exit(c, "Erreur allocation mémoire");
+	}
     if ((!ft_strcmp(id, "F") || !ft_strcmp(id, "C")) && !is_valid_rgb(v))
     {
         free(v);
+		free(line);
         clean_exit(c, "Couleur invalide");
     }
     if (!ft_strcmp(id, "NO") && !c->no_path)
@@ -38,6 +42,7 @@ void set_config_field(t_config *c, char *id, char *line)
     else
     {
         free(v);
+		free(line);
         clean_exit(c, "Identifiant invalide ou déjà défini");
     }
     printf("Stocké [%s] = [%s]\n", id, v);

@@ -17,7 +17,10 @@ void	parse_identifier_line(t_config *conf, char *line)
 	else if (ft_strncmp(line, "C", 1) == 0)
 		set_config_field(conf, "C", line + 1);
 	else
+	{
+		free(line);
 		clean_exit(conf, "Identifiant invalide");
+	}
 }
 
 static char *skip_empty_lines_after_ids(t_config *config, int fd, char *line)
@@ -28,7 +31,10 @@ static char *skip_empty_lines_after_ids(t_config *config, int fd, char *line)
 		line = get_next_line(fd);
 	}
 	if (!line)
+	{
+		free(line);
 		clean_exit(config, "Carte manquante");
+	}
 	return (line);
 }
 /* OG

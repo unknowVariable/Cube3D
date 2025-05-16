@@ -1,0 +1,8 @@
+.cache/
+valgrind_logs/
+compile_commands.json
+*.o
+obj/
+.DS_Store
+.vscode/
+*.swp
