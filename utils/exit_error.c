@@ -49,11 +49,17 @@ void	free_mlx_resources(t_config *c)
 		mlx_destroy_image(c->mlx.mlx_ptr, c->mlx.tex_ea);
 	if (c->mlx.win_ptr)
 		mlx_destroy_window(c->mlx.mlx_ptr, c->mlx.win_ptr);
+	if (c->mlx.mlx_ptr)
+	{
+		mlx_destroy_display(c->mlx.mlx_ptr);
+		free(c->mlx.mlx_ptr);
+	}
 }
 
 void	clean_exit(t_config *c, char *msg)
 {
-	free_mlx_resources(c);
+	if (c->mlx.mlx_ptr)
+		free_mlx_resources(c);
 	free_paths_and_colors(c);
 	if (c->map.raw_lines)
 		free_list(c->map.raw_lines);

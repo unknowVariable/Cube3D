@@ -1,7 +1,7 @@
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
-# include "mlx.h"
+# include "../mlx/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -65,16 +65,6 @@ typedef struct s_player
 	double			moveSpeed;
 	double			rotSpeed;
 }					t_player;
-
-typedef struct s_game
-{
-	void			*mlx_ptr;
-	void			*win_ptr;
-	int mapWidth, mapHeight;
-	char			**map;
-	int floor_color, ceil_color;
-	t_player		player;
-}					t_game;
 
 typedef struct s_config
 {
