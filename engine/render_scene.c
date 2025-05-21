@@ -64,4 +64,3 @@ void render_scene(t_config *conf)
     mlx_put_image_to_window(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->win.img, 0, 0);
     mlx_destroy_image(conf->mlx.mlx_ptr, conf->win.img);
 }
-

@@ -138,7 +138,7 @@ void	render_scene(t_config *conf);
 void	draw_column(t_config *conf, t_img_data tex_img);
 double	perform_dda(t_config *conf, t_ray *ray);
 double	my_abs(double x);
-void	put_pixel(char *data, int x, int y, int color, int bpp, int line_len);
+void	put_pixel(t_config *conf, int y, int color);
 
 /* Close_windows */
 int					close_window(void *param);

@@ -1,4 +1,5 @@
 #include "cube3d.h"
+
 // #include "mlx.h"
 
 void	init_mlx(t_config *conf)
@@ -26,3 +27,4 @@ void	init_mlx(t_config *conf)
 	if (!conf->mlx.tex_ea.img)
 		clean_exit(conf, "Erreur texture EA");
 }
+
