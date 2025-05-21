@@ -33,20 +33,18 @@ void	free_paths_and_colors(t_config *c)
 	if (c->so_path) free(c->so_path);
 	if (c->we_path) free(c->we_path);
 	if (c->ea_path) free(c->ea_path);
-	if (c->f_color) free(c->f_color);
-	if (c->c_color) free(c->c_color);
 }
 
 void	free_mlx_resources(t_config *c)
 {
-	if (c->mlx.tex_no)
-		mlx_destroy_image(c->mlx.mlx_ptr, c->mlx.tex_no);
-	if (c->mlx.tex_so)
-		mlx_destroy_image(c->mlx.mlx_ptr, c->mlx.tex_so);
-	if (c->mlx.tex_we)
-		mlx_destroy_image(c->mlx.mlx_ptr, c->mlx.tex_we);
-	if (c->mlx.tex_ea)
-		mlx_destroy_image(c->mlx.mlx_ptr, c->mlx.tex_ea);
+	if (c->mlx.tex_no.img)
+		mlx_destroy_image(c->mlx.mlx_ptr, c->mlx.tex_no.img);
+	if (c->mlx.tex_so.img)
+		mlx_destroy_image(c->mlx.mlx_ptr, c->mlx.tex_so.img);
+	if (c->mlx.tex_we.img)
+		mlx_destroy_image(c->mlx.mlx_ptr, c->mlx.tex_we.img);
+	if (c->mlx.tex_ea.img)
+		mlx_destroy_image(c->mlx.mlx_ptr, c->mlx.tex_ea.img);
 	if (c->mlx.win_ptr)
 		mlx_destroy_window(c->mlx.mlx_ptr, c->mlx.win_ptr);
 	if (c->mlx.mlx_ptr)

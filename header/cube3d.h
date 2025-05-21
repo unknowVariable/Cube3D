@@ -12,13 +12,17 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-#define KEY_W      119
-#define KEY_A      97
-#define KEY_S      115
-#define KEY_D      100
-#define KEY_LEFT   65361
-#define KEY_RIGHT  65363
-#define KEY_ESC    65307
+#define	WIN_WIDTH	1024
+#define	WIN_HEIGHT	768
+#define	TEX_WIDTH	128
+#define	TEX_HEIGHT	128
+#define KEY_W		119
+#define KEY_A		97
+#define KEY_S		115
+#define KEY_D		100
+#define KEY_LEFT	65361
+#define KEY_RIGHT	65363
+#define KEY_ESC		65307
 
 // Store the lines of the Map
 typedef struct s_list
@@ -40,15 +44,26 @@ typedef struct s_map_data
 	char			player_dir;
 }					t_map_data;
 
+typedef struct s_img_data
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}			t_img_data;
+
 // Structure de gestion graphique (MiniLibX)
 typedef struct s_mlx
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-	void			*tex_no;
-	void			*tex_so;
-	void			*tex_we;
-	void			*tex_ea;
+	t_img_data		tex_no;
+	t_img_data		tex_so;
+	t_img_data		tex_we;
+	t_img_data		tex_ea;
 }					t_mlx;
 
 typedef struct s_player
@@ -69,13 +84,14 @@ typedef struct s_config
 	char			*so_path;
 	char			*we_path;
 	char			*ea_path;
-	char			*f_color;
-	char			*c_color;
+	int				f_color;
+	int				c_color;
 	int keys[70000];
 
 	t_map_data		map;
 	t_mlx			mlx;
 	t_player		player;
+	t_img_data		win;
 }					t_config;
 
 // ** ENGINE ** //
@@ -95,11 +111,8 @@ void	rotate_view(t_config *conf, double rot);
 
 // --- Prototypes raycasting ---
 void	render_scene(t_config *conf);
-void	draw_column(
-		char *data, char *tex_data, int x,
-		int draw_start, int draw_end, int tex_x, int line_height,
-		int bpp, int line_len, int tex_bpp, int tex_line_len,
-		int tex_height, int win_height, int ceil_color, int floor_color);
+void	draw_column(t_config *conf, t_img_data tex_img, int x,
+	int draw_start, int draw_end, int tex_x, int line_height);
 double	perform_dda(t_config *conf, double ray_dir_x, double ray_dir_y, int *side);
 double	my_abs(double x);
 void	put_pixel(char *data, int x, int y, int color, int bpp, int line_len);
