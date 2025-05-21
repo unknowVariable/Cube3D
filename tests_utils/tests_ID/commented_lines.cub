@@ -1,8 +1,0 @@
-# This is a comment
-NO ./north.xpm
-SO ./south.xpm
-# Another comment
-WE ./west.xpm
-EA ./east.xpm
-F 220,100,0
-C 225,30,0

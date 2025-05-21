@@ -58,8 +58,7 @@ void	free_mlx_resources(t_config *c)
 
 void	clean_exit(t_config *c, char *msg)
 {
-	if (c->mlx.mlx_ptr)
-		free_mlx_resources(c);
+	free_mlx_resources(c);
 	free_paths_and_colors(c);
 	if (c->map.raw_lines)
 		free_list(c->map.raw_lines);

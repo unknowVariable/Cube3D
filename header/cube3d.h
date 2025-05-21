@@ -1,7 +1,7 @@
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
-# include "../mlx/mlx.h"
+# include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -12,16 +12,13 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-#define WIN_WIDTH 1280
-#define WIN_HEIGHT 720
-
-#define KEY_W        13
-#define KEY_S        1
-#define KEY_A        0
-#define KEY_D        2
-#define KEY_LEFT     123
-#define KEY_RIGHT    124
-#define KEY_ESC      53
+#define KEY_W      119
+#define KEY_A      97
+#define KEY_S      115
+#define KEY_D      100
+#define KEY_LEFT   65361
+#define KEY_RIGHT  65363
+#define KEY_ESC    65307
 
 // Store the lines of the Map
 typedef struct s_list
@@ -74,6 +71,7 @@ typedef struct s_config
 	char			*ea_path;
 	char			*f_color;
 	char			*c_color;
+	int keys[70000];
 
 	t_map_data		map;
 	t_mlx			mlx;
@@ -81,6 +79,30 @@ typedef struct s_config
 }					t_config;
 
 // ** ENGINE ** //
+
+/* handle_key */
+int key_press(int key, void *param);
+int key_release(int key, void *param);
+int game_loop(void *param);
+
+/* movement.c*/
+void	move_forward(t_config *conf, double speed);
+void	move_backward(t_config *conf, double speed);
+void	strafe_left(t_config *conf, double speed);
+void	strafe_right(t_config *conf, double speed);
+void	rotate_view(t_config *conf, double rot);
+
+
+// --- Prototypes raycasting ---
+void	render_scene(t_config *conf);
+void	draw_column(
+		char *data, char *tex_data, int x,
+		int draw_start, int draw_end, int tex_x, int line_height,
+		int bpp, int line_len, int tex_bpp, int tex_line_len,
+		int tex_height, int win_height, int ceil_color, int floor_color);
+double	perform_dda(t_config *conf, double ray_dir_x, double ray_dir_y, int *side);
+double	my_abs(double x);
+void	put_pixel(char *data, int x, int y, int color, int bpp, int line_len);
 
 /* Close_windows */
 int					close_window(void *param);
