@@ -1,0 +1,410 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "main.o",
+      "main.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/main.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "gnl/get_next_line.o",
+      "gnl/get_next_line.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/gnl/get_next_line.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/gnl/get_next_line.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/global_utils1.o",
+      "utils/global_utils1.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/global_utils1.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/global_utils1.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/exit_error.o",
+      "utils/exit_error.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/exit_error.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/exit_error.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/parsingID_utils2.o",
+      "utils/parsingID_utils2.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/parsingID_utils2.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/parsingID_utils2.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/parsingMAP_utils2.o",
+      "utils/parsingMAP_utils2.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/parsingMAP_utils2.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/parsingMAP_utils2.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/parsingID_utils.o",
+      "utils/parsingID_utils.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/parsingID_utils.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/parsingID_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/global_utils2.o",
+      "utils/global_utils2.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/global_utils2.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/global_utils2.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/ft_split.o",
+      "utils/ft_split.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/ft_split.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/ft_split.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/ft_atoi.o",
+      "utils/ft_atoi.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/ft_atoi.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/ft_atoi.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/get_next_line_utils.o",
+      "utils/get_next_line_utils.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/get_next_line_utils.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/get_next_line_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/parsingMAP_utils.o",
+      "utils/parsingMAP_utils.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/parsingMAP_utils.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/parsingMAP_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "utils/global_utils3.o",
+      "utils/global_utils3.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/global_utils3.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/utils/global_utils3.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "parsing/parse_map.o",
+      "parsing/parse_map.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/parsing/parse_map.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/parsing/parse_map.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "parsing/check_file.o",
+      "parsing/check_file.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/parsing/check_file.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/parsing/check_file.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "parsing/parse_content.o",
+      "parsing/parse_content.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/parsing/parse_content.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/parsing/parse_content.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "engine/init_player.o",
+      "engine/init_player.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/init_player.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/init_player.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "engine/render_scene.o",
+      "engine/render_scene.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/render_scene.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/render_scene.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "engine/render_utils.o",
+      "engine/render_utils.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/render_utils.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/render_utils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "engine/dda.o",
+      "engine/dda.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/dda.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/dda.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "engine/windows_and_keys.o",
+      "engine/windows_and_keys.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/windows_and_keys.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/windows_and_keys.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "engine/movement.o",
+      "engine/movement.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/movement.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/movement.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "engine/graphics.o",
+      "engine/graphics.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/graphics.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/graphics.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/cc",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I./header",
+      "-I./mlx",
+      "-c",
+      "-o",
+      "engine/render.o",
+      "engine/render.c"
+    ],
+    "directory": "/home/b8rx/WORKSPACE/cub4D_repo_alix",
+    "file": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/render.c",
+    "output": "/home/b8rx/WORKSPACE/cub4D_repo_alix/engine/render.o"
+  }
+]

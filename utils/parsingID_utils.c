@@ -10,7 +10,7 @@ int	is_identifier(char *line)
 int	all_identifiers_filled(t_config *conf)
 {
 	return (conf->no_path && conf->so_path && conf->we_path && conf->ea_path
-		&& conf->f_color && conf->c_color);
+		&& conf->f_color != -1 && conf->c_color != -1);
 }
 
 void set_config_field(t_config *c, char *id, char *line)
@@ -31,10 +31,10 @@ void set_config_field(t_config *c, char *id, char *line)
         c->we_path = ft_strdup(v);
     else if (!ft_strcmp(id, "EA") && !c->ea_path)
         c->ea_path = ft_strdup(v);
-    else if (!ft_strcmp(id, "F") && !c->f_color)
-        c->f_color = ft_strdup(v);
-    else if (!ft_strcmp(id, "C") && !c->c_color)
-        c->c_color = ft_strdup(v);
+    else if (!ft_strcmp(id, "F") && c->f_color == -1)
+        c->f_color = parse_color_string_to_int(v, c);
+    else if (!ft_strcmp(id, "C") && c->c_color == -1)
+        c->c_color = parse_color_string_to_int(v, c);
     else
     {
         free(v);
@@ -43,5 +43,3 @@ void set_config_field(t_config *c, char *id, char *line)
     printf("Stocké [%s] = [%s]\n", id, v);
     free(v);
 }
-
-

@@ -1,0 +1,12 @@
+# TEST MLX SUPPRESSION
+
+
+{
+   xcb_writev_uninit
+   Memcheck:Param
+   writev(vector[...])
+   fun:writev
+   obj:/usr/lib/*/libxcb.so*
+}
+
+

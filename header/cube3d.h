@@ -12,16 +12,17 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-#define WIN_WIDTH 1280
-#define WIN_HEIGHT 720
-
-#define KEY_W        13
-#define KEY_S        1
-#define KEY_A        0
-#define KEY_D        2
-#define KEY_LEFT     123
-#define KEY_RIGHT    124
-#define KEY_ESC      53
+#define	WIN_WIDTH	1024
+#define	WIN_HEIGHT	768
+#define	TEX_WIDTH	128
+#define	TEX_HEIGHT	128
+#define KEY_W		119
+#define KEY_A		97
+#define KEY_S		115
+#define KEY_D		100
+#define KEY_LEFT	65361
+#define KEY_RIGHT	65363
+#define KEY_ESC		65307
 
 // Store the lines of the Map
 typedef struct s_list
@@ -43,15 +44,49 @@ typedef struct s_map_data
 	char			player_dir;
 }					t_map_data;
 
+typedef struct s_ray {
+	double	camera_x;
+	int		map_x;
+	int		map_y;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		side;
+	int		line_height;
+	int		step_x;
+	int		step_y;
+	int		draw_start;
+	int		draw_end;
+	double	perp_wall_dist;
+	double	wall_x;
+}	t_ray;
+
+typedef struct s_img_data
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		x;
+	int		y;
+	double	tex_pos;
+}			t_img_data;
+
 // Structure de gestion graphique (MiniLibX)
 typedef struct s_mlx
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-	void			*tex_no;
-	void			*tex_so;
-	void			*tex_we;
-	void			*tex_ea;
+	t_img_data		tex_no;
+	t_img_data		tex_so;
+	t_img_data		tex_we;
+	t_img_data		tex_ea;
 }					t_mlx;
 
 typedef struct s_player
@@ -66,31 +101,44 @@ typedef struct s_player
 	double			rotSpeed;
 }					t_player;
 
-typedef struct s_game
-{
-	void			*mlx_ptr;
-	void			*win_ptr;
-	int mapWidth, mapHeight;
-	char			**map;
-	int floor_color, ceil_color;
-	t_player		player;
-}					t_game;
-
 typedef struct s_config
 {
 	char			*no_path;
 	char			*so_path;
 	char			*we_path;
 	char			*ea_path;
-	char			*f_color;
-	char			*c_color;
+	int				f_color;
+	int				c_color;
+	int keys[70000];
 
 	t_map_data		map;
 	t_mlx			mlx;
 	t_player		player;
+	t_img_data		win;
+	t_ray			ray;
 }					t_config;
 
 // ** ENGINE ** //
+
+/* handle_key */
+int key_press(int key, void *param);
+int key_release(int key, void *param);
+int game_loop(void *param);
+
+/* movement.c*/
+void	move_forward(t_config *conf, double speed);
+void	move_backward(t_config *conf, double speed);
+void	strafe_left(t_config *conf, double speed);
+void	strafe_right(t_config *conf, double speed);
+void	rotate_view(t_config *conf, double rot);
+
+
+// --- Prototypes raycasting ---
+void	render_scene(t_config *conf);
+void	draw_column(t_config *conf, t_img_data tex_img);
+double	perform_dda(t_config *conf, t_ray *ray);
+double	my_abs(double x);
+void	put_pixel(t_config *conf, int y, int color);
 
 /* Close_windows */
 int					close_window(void *param);

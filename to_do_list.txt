@@ -1,0 +1,34 @@
+
+REFACTORIZATION;
+
+2025-05-21
+
+- create new struct t_img_data to store data of images created with mlx_new_image() . 
+typedef struct s_img_data
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}			t_img_data;
+
+
+- removed the function init_config() function in main() because the struct config was already initialized with ft_bzero().
+
+- the variables f_color and c_color in the struct config are now in type integer (int). They are now set in the function set_config_field() directly in the format int and not anymore set in the function render_scene().
+
+- in parse_color_string_to_int() function i removed the check if the color is valid or not, because the check was done in the function set_config_field() who call is_valid_rgb() just above.
+
+- in render_scene() i removed local creation of variables, now we use struct variables members to save lot of lines.
+
+	in the structure t_config , i added the member t_img_data win to store the image data of the window (img, addr, bpp, edian....);
+	int the structure t_mlx, i changed the type of the textures from void * to t_img_data .
+
+
+- create new struct t_ray to store all the variables we use in render_scene.c dda.c and render.c
+
+	refactored render_scene() => add two functions ( get_good_tex() and cast_ray() ) to reduce the size and separate actions
+	retactored perform_dda() => add tree functions ( loop_dda() init_data_step_y() init_data_step_x() )
