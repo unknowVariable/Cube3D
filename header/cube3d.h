@@ -44,6 +44,26 @@ typedef struct s_map_data
 	char			player_dir;
 }					t_map_data;
 
+typedef struct s_ray {
+	double	camera_x;
+	int		map_x;
+	int		map_y;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		side;
+	int		line_height;
+	int		step_x;
+	int		step_y;
+	int		draw_start;
+	int		draw_end;
+	double	perp_wall_dist;
+	double	wall_x;
+}	t_ray;
+
 typedef struct s_img_data
 {
 	void	*img;
@@ -53,6 +73,9 @@ typedef struct s_img_data
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		x;
+	int		y;
+	double	tex_pos;
 }			t_img_data;
 
 // Structure de gestion graphique (MiniLibX)
@@ -92,6 +115,7 @@ typedef struct s_config
 	t_mlx			mlx;
 	t_player		player;
 	t_img_data		win;
+	t_ray			ray;
 }					t_config;
 
 // ** ENGINE ** //
@@ -111,9 +135,8 @@ void	rotate_view(t_config *conf, double rot);
 
 // --- Prototypes raycasting ---
 void	render_scene(t_config *conf);
-void	draw_column(t_config *conf, t_img_data tex_img, int x,
-	int draw_start, int draw_end, int tex_x, int line_height);
-double	perform_dda(t_config *conf, double ray_dir_x, double ray_dir_y, int *side);
+void	draw_column(t_config *conf, t_img_data tex_img);
+double	perform_dda(t_config *conf, t_ray *ray);
 double	my_abs(double x);
 void	put_pixel(char *data, int x, int y, int color, int bpp, int line_len);
 

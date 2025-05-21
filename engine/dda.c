@@ -5,49 +5,59 @@ double my_abs(double x)
 	return (x < 0) ? -x : x;
 }
 
-double perform_dda(t_config *conf, double ray_dir_x, double ray_dir_y, int *side)
+void	init_dda_step_x(t_config *conf, t_ray *ray)
 {
-	int map_x = (int)conf->player.pos_x;
-	int map_y = (int)conf->player.pos_y;
-	double delta_x = (ray_dir_x == 0) ? 1e30 : my_abs(1 / ray_dir_x);
-	double delta_y = (ray_dir_y == 0) ? 1e30 : my_abs(1 / ray_dir_y);
-	double side_x, side_y;
-	int step_x, step_y;
+	if (ray->ray_dir_x < 0)
+	{
+		ray->step_x = -1;
+		ray->side_dist_x = (conf->player.pos_x - ray->map_x) * ray->delta_x;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->map_x + 1.0 - conf->player.pos_x) * ray->delta_x;
+	}
+}
+void	init_dda_step_y(t_config *conf, t_ray *ray)
+{
+	if (ray->ray_dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->side_dist_y = (conf->player.pos_y - ray->map_y) * ray->delta_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->map_y + 1.0 - conf->player.pos_y) * ray->delta_y;
+	}
+}
 
-	if (ray_dir_x < 0)
+void	loop_dda(t_config *conf, t_ray *ray)
+{
+	while (conf->map.map[ray->map_y][ray->map_x] != '1')
 	{
-		step_x = -1;
-		side_x = (conf->player.pos_x - map_x) * delta_x;
-	}
-	else
-	{
-		step_x = 1;
-		side_x = (map_x + 1.0 - conf->player.pos_x) * delta_x;
-	}
-	if (ray_dir_y < 0)
-	{
-		step_y = -1;
-		side_y = (conf->player.pos_y - map_y) * delta_y;
-	}
-	else
-	{
-		step_y = 1;
-		side_y = (map_y + 1.0 - conf->player.pos_y) * delta_y;
-	}
-	while (conf->map.map[map_y][map_x] != '1')
-	{
-		if (side_x < side_y)
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			side_x += delta_x;
-			map_x += step_x;
-			*side = 0;
+			ray->side_dist_x += ray->delta_x;
+			ray->map_x += ray->step_x;
+			ray->side = 0;
 		}
 		else
 		{
-			side_y += delta_y;
-			map_y += step_y;
-			*side = 1;
+			ray->side_dist_y += ray->delta_y;
+			ray->map_y += ray->step_y;
+			ray->side = 1;
 		}
 	}
-	return (*side == 0) ? side_x - delta_x : side_y - delta_y;
+
+}
+
+double perform_dda(t_config *conf, t_ray *ray)
+{
+	init_dda_step_x(conf, ray);
+	init_dda_step_y(conf, ray);
+	loop_dda(conf, ray);
+	if (ray->side == 0)
+		return (ray->side_dist_x - ray->delta_x);
+	return (ray->side_dist_y - ray->delta_y);
 }
