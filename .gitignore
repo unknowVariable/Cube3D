@@ -2,6 +2,7 @@
 valgrind_logs/
 compile_commands.json
 *.o
+*.out
 obj/
 .DS_Store
 .vscode/
