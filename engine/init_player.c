@@ -4,7 +4,6 @@ void	init_player(t_config *c)
 {
 	c->player.pos_x = c->map.player_x + 0.5;
 	c->player.pos_y = c->map.player_y + 0.5;
-
 	if (c->map.player_dir == 'N')
 	{
 		c->player.dir_x = 0;
@@ -34,4 +33,3 @@ void	init_player(t_config *c)
 		c->player.plane_y = -0.66;
 	}
 }
-
