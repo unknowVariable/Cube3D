@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/22 22:40:44 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/cube3d.h"
 
 char	*ft_join_free(char *str1, char *str2)
@@ -9,13 +21,12 @@ char	*ft_join_free(char *str1, char *str2)
 	return (temp);
 }
 
-#include "../header/cube3d.h"
-
 static char	*extract_first_line(char *buffer)
 {
-	int		i = 0;
+	int		i;
 	char	*line;
 
+	i = 0;
 	if (!buffer[i])
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
@@ -37,9 +48,11 @@ static char	*extract_first_line(char *buffer)
 
 static void	remove_first_line(char *buffer)
 {
-	char	*nl = ft_strchr(buffer, '\n');
-	int		i = 0;
+	char	*nl;
+	int		i;
 
+	nl = ft_strchr(buffer, '\n');
+	i = 0;
 	if (!nl)
 	{
 		buffer[0] = '\0';
@@ -57,9 +70,11 @@ static void	remove_first_line(char *buffer)
 static int	fill_buffer(int fd, char *buffer)
 {
 	char	stash[BUFFER_SIZE + 1];
-	char	*temp = ft_calloc(1, 1);
-	int		r = 1;
+	char	*temp;
+	int		r;
 
+	temp = ft_calloc(1, 1);
+	r = 1;
 	if (!temp)
 		return (0);
 	while (!ft_strchr(temp, '\n') && r > 0)

@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 22:16:25 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/22 22:39:55 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,4 @@ int	game_loop(void *param)
 		rotate_view(conf, conf->rot_speed);
 	render_scene(conf);
 	return (0);
-
 }
