@@ -1,8 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/22 22:15:03 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube3d.h"
 
-double my_abs(double x)
+double	my_abs(double x)
 {
-	return (x < 0) ? -x : x;
+	if (x < 0)
+		return (-x);
+	return (x);
 }
 
 void	init_dda_step_x(t_config *conf, t_ray *ray)
@@ -15,9 +29,11 @@ void	init_dda_step_x(t_config *conf, t_ray *ray)
 	else
 	{
 		ray->step_x = 1;
-		ray->side_dist_x = (ray->map_x + 1.0 - conf->player.pos_x) * ray->delta_x;
+		ray->side_dist_x = (ray->map_x + 1.0 - conf->player.pos_x)
+			* ray->delta_x;
 	}
 }
+
 void	init_dda_step_y(t_config *conf, t_ray *ray)
 {
 	if (ray->ray_dir_y < 0)
@@ -28,7 +44,8 @@ void	init_dda_step_y(t_config *conf, t_ray *ray)
 	else
 	{
 		ray->step_y = 1;
-		ray->side_dist_y = (ray->map_y + 1.0 - conf->player.pos_y) * ray->delta_y;
+		ray->side_dist_y = (ray->map_y + 1.0 - conf->player.pos_y)
+			* ray->delta_y;
 	}
 }
 
@@ -49,10 +66,9 @@ void	loop_dda(t_config *conf, t_ray *ray)
 			ray->side = 1;
 		}
 	}
-
 }
 
-double perform_dda(t_config *conf, t_ray *ray)
+double	perform_dda(t_config *conf, t_ray *ray)
 {
 	init_dda_step_x(conf, ray);
 	init_dda_step_y(conf, ray);
