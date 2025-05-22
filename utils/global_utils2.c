@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   global_utils2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/22 08:09:49 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/cube3d.h"
 
 int	ft_strncmp(char *s1, char *s2, unsigned int n)
@@ -28,10 +40,10 @@ static int	ft_char_in_set(char c, char const *set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char *str;
-	size_t i;
-	size_t start;
-	size_t end;
+	char	*str;
+	size_t	i;
+	size_t	start;
+	size_t	end;
 
 	start = 0;
 	while (s1[start] && ft_char_in_set(s1[start], set))
@@ -51,7 +63,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 int	is_only_spaces(char *line)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (line[i])
 	{
 		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
@@ -60,6 +74,7 @@ int	is_only_spaces(char *line)
 	}
 	return (1);
 }
+
 char	*ft_strdup(char *src)
 {
 	int		i;
@@ -67,11 +82,11 @@ char	*ft_strdup(char *src)
 	char	*str;
 
 	if (!src)
-		return (NULL); 
+		return (NULL);
 	len = 0;
 	while (src[len])
 		len++;
-	str = (char*)malloc(sizeof(*str) * (len + 1));
+	str = (char *)malloc(sizeof(*str) * (len + 1));
 	i = 0;
 	while (i < len)
 	{

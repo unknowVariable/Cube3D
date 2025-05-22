@@ -1,8 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsingID_utils2.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/22 08:11:20 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/cube3d.h"
 
-int is_number(char *s)
+int	is_number(char *s)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (!s || !s[0])
 		return (0);
 	while (s[i])
@@ -16,8 +30,8 @@ int is_number(char *s)
 
 int	is_valid_rgb_component(char *s)
 {
-	char *trimmed;
-	int value;
+	char	*trimmed;
+	int		value;
 
 	trimmed = ft_strtrim(s, " \t\n");
 	if (!trimmed)
@@ -57,17 +71,19 @@ int	is_valid_rgb(char *str)
 	return (1);
 }
 
-
 int	parse_color_string_to_int(char *str, t_config *c)
 {
-	char **components;
-	int r, g, b;
-	int color;
+	char	**components;
+	int		color;
+	int		r;
+	int		g;
+	int		b;
 
 	if (!str)
 		clean_exit(c, "Couleur NULL");
 	components = ft_split(str, ',');
-	if (!components || !components[0] || !components[1] || !components[2] || components[3])
+	if (!components || !components[0] || !components[1] || !components[2]
+		|| components[3])
 		clean_exit(c, "Format couleur invalide");
 	r = ft_atoi(components[0]);
 	g = ft_atoi(components[1]);
@@ -78,4 +94,3 @@ int	parse_color_string_to_int(char *str, t_config *c)
 	ft_free_split(components);
 	return (color);
 }
-

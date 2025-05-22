@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit_error.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/22 08:09:01 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/cube3d.h"
 
 void	ft_exit_error(char *msg)
@@ -29,10 +41,14 @@ void	free_list(t_list *lst)
 
 void	free_paths_and_colors(t_config *c)
 {
-	if (c->no_path) free(c->no_path);
-	if (c->so_path) free(c->so_path);
-	if (c->we_path) free(c->we_path);
-	if (c->ea_path) free(c->ea_path);
+	if (c->no_path)
+		free(c->no_path);
+	if (c->so_path)
+		free(c->so_path);
+	if (c->we_path)
+		free(c->we_path);
+	if (c->ea_path)
+		free(c->ea_path);
 }
 
 void	free_mlx_resources(t_config *c)
@@ -64,4 +80,3 @@ void	clean_exit(t_config *c, char *msg)
 		free_map(c->map.map);
 	ft_exit_error(msg);
 }
-
