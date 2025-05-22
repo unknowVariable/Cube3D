@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_scene.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/22 22:26:33 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube3d.h"
 
-void	cast_ray(t_config *conf, t_ray *ray)
+static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
 {
 	ray->camera_x = 2 * conf->win.x / (double)WIN_WIDTH - 1;
 	ray->ray_dir_x = conf->player.dir_x + conf->player.plane_x * ray->camera_x;
@@ -15,6 +27,11 @@ void	cast_ray(t_config *conf, t_ray *ray)
 		ray->delta_y = 1e30;
 	else
 		ray->delta_y = my_abs(1 / ray->ray_dir_y);
+}
+
+void	cast_ray(t_config *conf, t_ray *ray)
+{
+	init_ray_dir_and_delta(conf, ray);
 	ray->perp_wall_dist = perform_dda(conf, ray);
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
