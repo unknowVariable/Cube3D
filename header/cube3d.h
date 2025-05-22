@@ -109,7 +109,7 @@ typedef struct s_config
 	char			*ea_path;
 	int				f_color;
 	int				c_color;
-	int keys[70000];
+	int				keys[70000];
 
 	t_map_data		map;
 	t_mlx			mlx;

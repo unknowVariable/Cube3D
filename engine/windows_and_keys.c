@@ -35,10 +35,8 @@ int game_loop(void *param)
     double movespeed = 0.010;
     double rotspeed = 0.010;
 
-    // Quitter aussi si ESC reste appuyé
     if (conf->keys[KEY_ESC])
         close_window(conf);
-
     if (conf->keys[KEY_W])
         move_forward(conf, movespeed);
     if (conf->keys[KEY_S])
