@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 00:13:53 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 00:18:15 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	key_release(int key, void *param)
 
 void	handle_jump(t_config *conf)
 {
+	printf("KEY PRESSED");
 	if (conf->keys[32] && conf->jumping == 0 && conf->jump_offset == 0)
 	{
 		conf->jumping = 1;
