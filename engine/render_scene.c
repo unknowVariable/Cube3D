@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 00:31:08 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 00:35:13 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void	cast_ray(t_config *conf, t_ray *ray)
 	ray->perp_wall_dist = perform_dda(conf, ray);
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -ray->line_height / 2 + (WIN_HEIGHT / 2)
-		- (int)conf->jump_offset;
+		+ (int)conf->jump_offset;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	ray->draw_end = ray->line_height / 2 + (WIN_HEIGHT / 2)
-		- (int)conf->jump_offset;
+		+ (int)conf->jump_offset;
 	if (ray->draw_end >= WIN_HEIGHT)
 		ray->draw_end = WIN_HEIGHT - 1;
 	if (ray->side == 0)
