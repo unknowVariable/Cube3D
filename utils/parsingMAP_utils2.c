@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 10:16:59 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/22 22:03:07 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,3 @@ void	check_map_closed(char **map, int height, int width, t_config *c)
 		i++;
 	}
 }
-
-
