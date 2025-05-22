@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 10:17:49 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/22 21:44:54 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	clean_and_exit(t_config *cfg, char *s1, char *s2, char *msg)
 
 void	create_padded_line(t_map_data *map, char *trimmed)
 {
-	char *padded;
-	int len;
+	char	*padded;
+	int		len;
 
 	len = ft_strlen(trimmed);
 	if (len > map->width)
@@ -35,5 +35,4 @@ void	create_padded_line(t_map_data *map, char *trimmed)
 		ft_memset(padded + len, ' ', map->width - len);
 	padded[map->width] = '\0';
 	ft_lstadd_back(&map->raw_lines, ft_lstnew(padded));
-	free(padded);
 }
