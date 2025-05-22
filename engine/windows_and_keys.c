@@ -37,26 +37,24 @@ int	key_release(int key, void *param)
 int	game_loop(void *param)
 {
 	t_config	*conf;
-	double		movespeed;
-	double		rotspeed;
 
 	conf = (t_config *)param;
-	movespeed = 0.010;
-	rotspeed = 0.010;
+	conf->move_speed = 0.010;
+	conf->rot_speed = 0.010;
 	if (conf->keys[KEY_ESC])
 		close_window(conf);
 	if (conf->keys[KEY_W])
-		move_forward(conf, movespeed);
+		move_forward(conf, conf->move_speed);
 	if (conf->keys[KEY_S])
-		move_backward(conf, movespeed);
+		move_backward(conf, conf->move_speed);
 	if (conf->keys[KEY_A])
-		strafe_left(conf, movespeed);
+		strafe_left(conf, conf->move_speed);
 	if (conf->keys[KEY_D])
-		strafe_right(conf, movespeed);
+		strafe_right(conf, conf->move_speed);
 	if (conf->keys[KEY_LEFT])
-		rotate_view(conf, -rotspeed);
+		rotate_view(conf, -conf->rot_speed);
 	if (conf->keys[KEY_RIGHT])
-		rotate_view(conf, rotspeed);
+		rotate_view(conf, conf->rot_speed);
 	render_scene(conf);
 	return (0);
 }

@@ -110,7 +110,8 @@ typedef struct s_config
 	int				f_color;
 	int				c_color;
 	int				keys[70000];
-
+	double			move_speed;
+	double			rot_speed;
 	t_map_data		map;
 	t_mlx			mlx;
 	t_player		player;
