@@ -1,7 +1,5 @@
 #include "../header/cube3d.h"
 
-
-
 char	*ft_join_free(char *str1, char *str2)
 {
 	char	*temp;
