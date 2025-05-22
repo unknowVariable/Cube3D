@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_content.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/22 10:24:23 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/cube3d.h"
 
 void	parse_identifier_line(t_config *conf, char *line)
@@ -20,7 +32,7 @@ void	parse_identifier_line(t_config *conf, char *line)
 		clean_exit(conf, "Identifiant invalide");
 }
 
-static char *skip_empty_lines_after_ids(t_config *config, int fd, char *line)
+static char	*skip_empty_lines_after_ids(t_config *config, int fd, char *line)
 {
 	while (line && is_only_spaces(line))
 	{
@@ -31,65 +43,46 @@ static char *skip_empty_lines_after_ids(t_config *config, int fd, char *line)
 		clean_exit(config, "Carte manquante");
 	return (line);
 }
-/* OG
-void	parse_file(int fd, t_config *conf)
-{
-	char	*line;
 
-	while ((line = get_next_line(fd)))
+static char	*process_line(t_config *conf, char *line)
+{
+	if (is_only_spaces(line))
 	{
-		if (is_only_spaces(line))
-		{
-			free(line);
-			continue ;
-		}
-		if (is_identifier(line))
-			parse_identifier_line(conf, line);
-		else if (!all_identifiers_filled(conf))
-			clean_exit(conf,"Ligne invalide avant la carte");
-		else
-			break ;
 		free(line);
+		return (NULL);
 	}
-	if (!all_identifiers_filled(conf))
-		clean_exit(conf,"Certains identifiants sont manquants");
-	line = skip_empty_lines_after_ids(conf, fd, line);
-	parse_map_lines(&conf->map, conf, fd, line);
-} // OG */
+	if (is_identifier(line))
+		parse_identifier_line(conf, line);
+	else if (!all_identifiers_filled(conf))
+	{
+		free(line);
+		clean_exit(conf, "Invalid pre-map line");
+	}
+	return (line);
+}
 
 void	parse_file(int fd, t_config *conf)
 {
 	char	*line;
+	int		processing;
 
-	while ((line = get_next_line(fd)))
+	processing = 1;
+	line = get_next_line(fd);
+	while (line != NULL && processing)
 	{
-		if (is_only_spaces(line))
-		{
-			free(line);
-			continue ;
-		}
-		if (is_identifier(line))
-			parse_identifier_line(conf, line);
-		else if (!all_identifiers_filled(conf))
-		{
-			free(line);
-			clean_exit(conf, "Ligne invalide avant la carte");
-		}
+		line = process_line(conf, line);
+		if (line && !is_identifier(line) && all_identifiers_filled(conf))
+			processing = 0;
 		else
-			break;
-		free(line);
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
 	}
-
-	if (!line) // EOF sans ligne de carte
-		clean_exit(conf, "Carte manquante");
-
+	if (!line)
+		clean_exit(conf, "Missing map");
 	if (!all_identifiers_filled(conf))
-	{
-		free(line);
-		clean_exit(conf, "Certains identifiants sont manquants");
-	}
-
+		clean_exit(conf, "Missing identifiers");
 	line = skip_empty_lines_after_ids(conf, fd, line);
 	parse_map_lines(&conf->map, conf, fd, line);
-} 
-
+}
