@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsingMAP_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/22 08:11:26 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/cube3d.h"
 
 int	is_map_char(char c)
@@ -25,7 +37,7 @@ t_list	*ft_lstnew(void *content)
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list *temp;
+	t_list	*temp;
 
 	if (!lst || !new)
 		return ;
@@ -42,8 +54,9 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 
 void	free_map(char **map)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!map)
 		return ;
 	while (map[i])
