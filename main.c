@@ -25,3 +25,4 @@ int	main(int argc, char **argv)
 	mlx_loop(conf.mlx.mlx_ptr);
 	return (0);
 }
+///bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
