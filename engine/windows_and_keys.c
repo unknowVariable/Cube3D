@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 22:39:55 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 00:13:53 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,26 @@ int	key_release(int key, void *param)
 	return (0);
 }
 
+void	handle_jump(t_config *conf)
+{
+	if (conf->keys[32] && conf->jumping == 0 && conf->jump_offset == 0)
+	{
+		conf->jumping = 1;
+		conf->jump_speed = 6.0;
+	}
+	if (conf->jumping)
+	{
+		conf->jump_offset += conf->jump_speed;
+		conf->jump_speed -= 0.5;
+		if (conf->jump_offset <= 0)
+		{
+			conf->jump_offset = 0;
+			conf->jumping = 0;
+			conf->jump_speed = 0;
+		}
+	}
+}
+
 int	game_loop(void *param)
 {
 	t_config	*conf;
@@ -67,6 +87,7 @@ int	game_loop(void *param)
 		rotate_view(conf, -conf->rot_speed);
 	if (conf->keys[KEY_RIGHT])
 		rotate_view(conf, conf->rot_speed);
+	handle_jump(conf);
 	render_scene(conf);
 	return (0);
 }
