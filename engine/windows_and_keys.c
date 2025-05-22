@@ -69,4 +69,5 @@ int	game_loop(void *param)
 		rotate_view(conf, conf->rot_speed);
 	render_scene(conf);
 	return (0);
+
 }

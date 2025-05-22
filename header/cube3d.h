@@ -12,17 +12,17 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-#define	WIN_WIDTH	1024
-#define	WIN_HEIGHT	768
-#define	TEX_WIDTH	128
-#define	TEX_HEIGHT	128
-#define KEY_W		119
-#define KEY_A		97
-#define KEY_S		115
-#define KEY_D		100
-#define KEY_LEFT	65361
-#define KEY_RIGHT	65363
-#define KEY_ESC		65307
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 768
+# define TEX_WIDTH 128
+# define TEX_HEIGHT 128
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_ESC 65307
 
 // Store the lines of the Map
 typedef struct s_list
@@ -44,39 +44,40 @@ typedef struct s_map_data
 	char			player_dir;
 }					t_map_data;
 
-typedef struct s_ray {
-	double	camera_x;
-	int		map_x;
-	int		map_y;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	delta_x;
-	double	delta_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	int		side;
-	int		line_height;
-	int		step_x;
-	int		step_y;
-	int		draw_start;
-	int		draw_end;
-	double	perp_wall_dist;
-	double	wall_x;
-}	t_ray;
+typedef struct s_ray
+{
+	double			camera_x;
+	int				map_x;
+	int				map_y;
+	double			ray_dir_x;
+	double			ray_dir_y;
+	double			delta_x;
+	double			delta_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	int				side;
+	int				line_height;
+	int				step_x;
+	int				step_y;
+	int				draw_start;
+	int				draw_end;
+	double			perp_wall_dist;
+	double			wall_x;
+}					t_ray;
 
 typedef struct s_img_data
 {
-	void	*img;
-	char	*addr;
-	int		width;
-	int		height;
-	int		bpp;
-	int		line_len;
-	int		endian;
-	int		x;
-	int		y;
-	double	tex_pos;
-}			t_img_data;
+	void			*img;
+	char			*addr;
+	int				width;
+	int				height;
+	int				bpp;
+	int				line_len;
+	int				endian;
+	int				x;
+	int				y;
+	double			tex_pos;
+}					t_img_data;
 
 // Structure de gestion graphique (MiniLibX)
 typedef struct s_mlx
@@ -97,8 +98,6 @@ typedef struct s_player
 	double			dir_y;
 	double			plane_x;
 	double			plane_y;
-	double			moveSpeed;
-	double			rotSpeed;
 }					t_player;
 
 typedef struct s_config
@@ -121,25 +120,26 @@ typedef struct s_config
 
 // ** ENGINE ** //
 
+/**/
+
 /* handle_key */
-int key_press(int key, void *param);
-int key_release(int key, void *param);
-int game_loop(void *param);
+int					key_press(int key, void *param);
+int					key_release(int key, void *param);
+int					game_loop(void *param);
 
 /* movement.c*/
-void	move_forward(t_config *conf, double speed);
-void	move_backward(t_config *conf, double speed);
-void	strafe_left(t_config *conf, double speed);
-void	strafe_right(t_config *conf, double speed);
-void	rotate_view(t_config *conf, double rot);
-
+void				move_forward(t_config *conf, double speed);
+void				move_backward(t_config *conf, double speed);
+void				strafe_left(t_config *conf, double speed);
+void				strafe_right(t_config *conf, double speed);
+void				rotate_view(t_config *conf, double rot);
 
 // --- Prototypes raycasting ---
-void	render_scene(t_config *conf);
-void	draw_column(t_config *conf, t_img_data tex_img);
-double	perform_dda(t_config *conf, t_ray *ray);
-double	my_abs(double x);
-void	put_pixel(t_config *conf, int y, int color);
+void				render_scene(t_config *conf);
+void				draw_column(t_config *conf, t_img_data tex_img);
+double				perform_dda(t_config *conf, t_ray *ray);
+double				my_abs(double x);
+void				put_pixel(t_config *conf, int y, int color);
 
 /* Close_windows */
 int					close_window(void *param);
@@ -194,6 +194,10 @@ int					is_border_void(char c);
 int					is_player_or_floor(char c);
 void				check_map_closed(char **map, int height, int width,
 						t_config *c);
+
+/* Parsing Map utils 3 */
+void	clean_and_exit(t_config *cfg, char *s1, char *s2, char *msg);
+void	create_padded_line(t_map_data *map, char *trimmed);
 
 /* Parsing utils */
 int					is_identifier(char *line);
