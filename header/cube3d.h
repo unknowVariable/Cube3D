@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 05:54:16 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 06:13:05 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
+# define WIN_WIDTH 640
+# define WIN_HEIGHT 480
 # define TEX_WIDTH 128
 # define TEX_HEIGHT 128
 # define KEY_W 119
