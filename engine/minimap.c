@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:45:08 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 08:15:06 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	draw_minimap(t_config *cfg)
 	int scale_x = max_width / map->width;
 	int scale_y = max_height / map->height;
 	int minimap_scale = (scale_x < scale_y) ? scale_x : scale_y;
-	if (minimap_scale < 3) minimap_scale = 3; // Toujours au moins 3 px
+	if (minimap_scale < 3) minimap_scale = 3;
 
 	int minimap_height = map->height * minimap_scale;
 	int origin_x = MINIMAP_MARGIN;
@@ -70,20 +70,19 @@ void	draw_minimap(t_config *cfg)
 		}
 	}
 
-	// Curseur joueur (rouge)
-	int cursor_radius = (minimap_scale < 6) ? 2 : 3;
+	// Curseur joueur ROUGE, carré plein et uniforme
+	int cursor_radius = 3;
 	int px = origin_x + (int)(cfg->player.pos_x * minimap_scale);
 	int py = origin_y + (int)(cfg->player.pos_y * minimap_scale);
 	for (int i = -cursor_radius; i <= cursor_radius; i++)
 		for (int j = -cursor_radius; j <= cursor_radius; j++)
-			if ((i * i + j * j) <= cursor_radius * cursor_radius)
+		{
+			int x = px + i;
+			int y = py + j;
+			if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 			{
-				int x = px + i;
-				int y = py + j;
-				if (x >= 0 && x < img->width && y >= 0 && y < img->height)
-				{
-					char *dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-					*(unsigned int *)dst = 0x00FF2222;
-				}
+				char *dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+				*(unsigned int *)dst = 0x00FF2222;
 			}
+		}
 }
