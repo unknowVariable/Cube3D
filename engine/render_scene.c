@@ -6,81 +6,83 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 10:21:20 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 10:24:52 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
+static void	minimap_draw_square(t_img_data *img, int x, int y, int color)
 {
-	ray->camera_x = 2 * conf->win.x / (double)WIN_WIDTH - 1;
-	ray->ray_dir_x = conf->player.dir_x + conf->player.plane_x * ray->camera_x;
-	ray->ray_dir_y = conf->player.dir_y + conf->player.plane_y * ray->camera_x;
-	ray->map_x = (int)conf->player.pos_x;
-	ray->map_y = (int)conf->player.pos_y;
-	if (ray->ray_dir_x == 0)
-		ray->delta_x = 1e30;
-	else
-		ray->delta_x = my_abs(1 / ray->ray_dir_x);
-	if (ray->ray_dir_y == 0)
-		ray->delta_y = 1e30;
-	else
-		ray->delta_y = my_abs(1 / ray->ray_dir_y);
-}
+	int		px;
+	int		py;
+	char	*dst;
 
-void	cast_ray(t_config *conf, t_ray *ray)
-{
-	init_ray_dir_and_delta(conf, ray);
-	ray->perp_wall_dist = perform_dda(conf, ray);
-	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
-	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
-	if (ray->draw_start < 0)
-		ray->draw_start = 0;
-	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
-	if (ray->draw_end >= WIN_HEIGHT)
-		ray->draw_end = WIN_HEIGHT - 1;
-	if (ray->side == 0)
-		ray->wall_x = conf->player.pos_y + ray->perp_wall_dist * ray->ray_dir_y;
-	else
-		ray->wall_x = conf->player.pos_x + ray->perp_wall_dist * ray->ray_dir_x;
-	ray->wall_x -= floor(ray->wall_x);
-}
-
-t_img_data	get_good_tex(t_config *conf)
-{
-	t_img_data	tex_img;
-
-	if (conf->ray.side == 0 && conf->ray.ray_dir_x > 0)
-		tex_img = conf->mlx.tex_ea;
-	else if (conf->ray.side == 0 && conf->ray.ray_dir_x < 0)
-		tex_img = conf->mlx.tex_we;
-	else if (conf->ray.side == 1 && conf->ray.ray_dir_y > 0)
-		tex_img = conf->mlx.tex_so;
-	else
-		tex_img = conf->mlx.tex_no;
-	return (tex_img);
-}
-
-void	render_scene(t_config *conf)
-{
-	t_img_data	tex_img;
-
-	conf->win.img = mlx_new_image(conf->mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	conf->win.addr = mlx_get_data_addr(conf->win.img, &conf->win.bpp,
-			&conf->win.line_len, &conf->win.endian);
-	conf->win.x = -1;
-	while (++(conf->win.x) < WIN_WIDTH)
+	int i, j;
+	for (i = 0; i < MINIMAP_SCALE; i++)
 	{
-		cast_ray(conf, &conf->ray);
-		tex_img = get_good_tex(conf);
-		tex_img.x = (int)(conf->ray.wall_x * (double)TEX_WIDTH);
-		tex_img.addr = mlx_get_data_addr(tex_img.img, &tex_img.bpp,
-				&tex_img.line_len, &tex_img.endian);
-		draw_column(conf, tex_img);
+		for (j = 0; j < MINIMAP_SCALE; j++)
+		{
+			px = x + i;
+			py = y + j;
+			if (px >= 0 && px < img->width && py >= 0 && py < img->height)
+			{
+				dst = img->addr + (py * img->line_len + px * (img->bpp / 8));
+				*(unsigned int *)dst = color;
+			}
+		}
 	}
-	draw_minimap(conf);
-	mlx_put_image_to_window(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->win.img,
-		0, 0);
-	mlx_destroy_image(conf->mlx.mlx_ptr, conf->win.img);
+}
+
+void	draw_minimap(t_config *cfg)
+{
+	t_map_data *map = &cfg->map;
+	t_img_data *img = &cfg->win;
+	int map_x, map_y, color;
+
+	int max_width = img->width / 4;
+	int max_height = img->height / 4;
+	int scale_x = max_width / map->width;
+	int scale_y = max_height / map->height;
+	int minimap_scale = (scale_x < scale_y) ? scale_x : scale_y;
+	if (minimap_scale < 3) minimap_scale = 3;
+
+	int minimap_height = map->height * minimap_scale;
+	int origin_x = MINIMAP_MARGIN;
+	int origin_y = img->height - minimap_height - MINIMAP_MARGIN;
+
+	for (map_y = 0; map_y < map->height; map_y++)
+	{
+		for (map_x = 0; map_x < map->width; map_x++)
+		{
+			char cell = map->map[map_y][map_x];
+			if (cell == '1')
+				color = 0x00755428; // mur marron
+			else if (cell == '0')
+				color = 0x00EDD8B0; // sol beige
+			else
+				color = 0x00FFFFFF; // vide/blanc
+
+			minimap_draw_square(img,
+				origin_x + map_x * minimap_scale,
+				origin_y + map_y * minimap_scale,
+				color);
+		}
+	}
+
+	// Curseur joueur ROUGE, carré plein et uniforme
+	int cursor_radius = 3;
+	int px = origin_x + (int)(cfg->player.pos_x * minimap_scale);
+	int py = origin_y + (int)(cfg->player.pos_y * minimap_scale);
+	for (int i = -cursor_radius; i <= cursor_radius; i++)
+		for (int j = -cursor_radius; j <= cursor_radius; j++)
+		{
+			int x = px + i;
+			int y = py + j;
+			if (x >= 0 && x < img->width && y >= 0 && y < img->height)
+			{
+				char *dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+				*(unsigned int *)dst = 0x00FF2222;
+			}
+		}
 }
