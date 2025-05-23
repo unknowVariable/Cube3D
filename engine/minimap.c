@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:21:31 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 07:23:29 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	draw_minimap(t_config *cfg)
 
 	if (minimap_scale < 2) minimap_scale = 2; // sécurité, pas moins de 2px/case
 
-	int minimap_width = map->width * minimap_scale;
 	int minimap_height = map->height * minimap_scale;
 
 	int origin_x = MINIMAP_MARGIN;
