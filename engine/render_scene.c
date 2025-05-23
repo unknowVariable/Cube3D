@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 06:31:27 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 06:47:36 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	render_scene(t_config *conf)
 	conf->win.img = mlx_new_image(conf->mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	conf->win.addr = mlx_get_data_addr(conf->win.img, &conf->win.bpp,
 			&conf->win.line_len, &conf->win.endian);
+	conf->win.width = WIN_WIDTH;
+	conf->win.height = WIN_HEIGHT;
 	conf->win.x = -1;
 	while (++(conf->win.x) < WIN_WIDTH)
 	{
@@ -79,12 +81,9 @@ void	render_scene(t_config *conf)
 				&tex_img.line_len, &tex_img.endian);
 		draw_column(conf, tex_img);
 	}
-	for (int x = 0; x < 100; x++)
-	{
-		for (int y = 0; y < 100; y++)
-        	((unsigned int *)(conf->win.addr))[y * WIN_WIDTH + x] = 0x00FF00FF; 
-	}
+
 	draw_minimap(conf);
+
 	mlx_put_image_to_window(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->win.img,
 		0, 0);
 	mlx_destroy_image(conf->mlx.mlx_ptr, conf->win.img);
