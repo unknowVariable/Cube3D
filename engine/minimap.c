@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 05:55:17 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 06:06:05 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	draw_minimap(t_config *cfg)
 	int			map_x, map_y;
 	int			color;
 
+    printf("minimap!\n");
 	// Parcours de la map
 	for (map_y = 0; map_y < map->height; map_y++)
 	{
