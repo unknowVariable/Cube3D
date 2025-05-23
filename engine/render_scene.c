@@ -33,6 +33,8 @@ void	cast_ray(t_config *conf, t_ray *ray)
 	ray->map_x = (int)conf->player.pos_x;
 	ray->map_y = (int)conf->player.pos_y;
 	ray->perp_wall_dist = perform_dda(conf, ray);
+	if (ray->perp_wall_dist < 0.01)
+		ray->perp_wall_dist = 0.01;
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
 	if (ray->draw_start < 0)
@@ -77,8 +79,6 @@ void	render_scene(t_config *conf)
 		cast_ray(conf, &conf->ray);
 		tex_img = get_good_tex(conf);
 		tex_img.x = (int)(conf->ray.wall_x * (double)TEX_WIDTH);
-		tex_img.addr = mlx_get_data_addr(tex_img.img, &tex_img.bpp,
-				&tex_img.line_len, &tex_img.endian);
 		draw_column(conf, tex_img);
 	}
 	draw_minimap(conf);

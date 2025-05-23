@@ -26,7 +26,7 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 		put_pixel(conf, y++, conf->c_color);
 	while (y <= conf->ray.draw_end)
 	{
-		tex_img.y = (int)tex_img.tex_pos & (tex_img.height - 1);
+		tex_img.y = (int)tex_img.tex_pos % tex_img.height;
 		tex_img.tex_pos += step;
 		color = *(unsigned int *)(tex_img.addr + tex_img.y * tex_img.line_len
 				+ tex_img.x * (tex_img.bpp / 8));

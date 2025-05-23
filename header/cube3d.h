@@ -144,6 +144,8 @@ int					key_release(int key, void *param);
 int					game_loop(void *param);
 
 /* movement.c*/
+int					can_move_x(t_config *conf, int nx);
+int					can_move_y(t_config *conf, int ny);
 void				move_forward(t_config *conf, double speed);
 void				move_backward(t_config *conf, double speed);
 void				strafe_left(t_config *conf, double speed);

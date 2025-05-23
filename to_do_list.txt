@@ -32,3 +32,28 @@ typedef struct s_img_data
 
 	refactored render_scene() => add two functions ( get_good_tex() and cast_ray() ) to reduce the size and separate actions
 	retactored perform_dda() => add tree functions ( loop_dda() init_data_step_y() init_data_step_x() )
+
+2025-05-23
+
+ajout de protection dans les fonctions:
+
+- loop_dda()
+		if (ray->map_y < 0 || ray->map_y >= conf->map.height ||
+			ray->map_x < 0 || ray->map_x >= (int)ft_strlen(conf->map.map[ray->map_y]))
+		{
+			ray->side = -1;
+			break;
+		}
+
+- perform_dda()
+	if (ray->side == 0)
+		return (ray->side_dist_x - ray->delta_x);
+	else if (ray->side == 1)
+		return (ray->side_dist_y - ray->delta_y);
+	return (0);
+
+- movement.c creation of can_move_x() and can_move_y() to check before moving if we are not out of boundary
+
+- put_pixel()
+	if (x < 0 || x >= conf->win.width || y < 0 || y >= conf->win.height)
+		return;
