@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 10:03:47 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 10:08:57 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,6 @@ typedef struct s_ray
 	double			wall_x;
 }					t_ray;
 
-typedef struct s_minimap
-{
-	t_img_data		*img;
-	int				scale;
-	int				origin_x;
-	int				origin_y;
-}					t_minimap;
-
 typedef struct s_img_data
 {
 	void			*img;
@@ -105,6 +97,14 @@ typedef struct s_img_data
 	int				y;
 	double			tex_pos;
 }					t_img_data;
+
+typedef struct s_minimap
+{
+	t_img_data		*img;
+	int				scale;
+	int				origin_x;
+	int				origin_y;
+}					t_minimap;
 
 // Structure de gestion graphique (MiniLibX)
 typedef struct s_mlx
