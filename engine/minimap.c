@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:39:40 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 07:45:08 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,14 @@ void	draw_minimap(t_config *cfg)
 	t_img_data *img = &cfg->win;
 	int map_x, map_y, color;
 
-	// Calcule le scale pour que la mini-map ne dépasse jamais MINIMAP_MAXSIZE
-	int scale_x = MINIMAP_MAXSIZE / map->width;
-	int scale_y = MINIMAP_MAXSIZE / map->height;
+	int max_width = img->width / 4;
+	int max_height = img->height / 4;
+	int scale_x = max_width / map->width;
+	int scale_y = max_height / map->height;
 	int minimap_scale = (scale_x < scale_y) ? scale_x : scale_y;
-
-	if (minimap_scale < 2) minimap_scale = 2; // sécurité, pas moins de 2px/case
+	if (minimap_scale < 3) minimap_scale = 3; // Toujours au moins 3 px
 
 	int minimap_height = map->height * minimap_scale;
-
 	int origin_x = MINIMAP_MARGIN;
 	int origin_y = img->height - minimap_height - MINIMAP_MARGIN;
 
@@ -71,12 +70,13 @@ void	draw_minimap(t_config *cfg)
 		}
 	}
 
-	// Affichage du joueur (jaune)
+	// Curseur joueur (rouge)
+	int cursor_radius = (minimap_scale < 6) ? 2 : 3;
 	int px = origin_x + (int)(cfg->player.pos_x * minimap_scale);
 	int py = origin_y + (int)(cfg->player.pos_y * minimap_scale);
-	for (int i = -2; i <= 2; i++)
-		for (int j = -2; j <= 2; j++)
-			if ((i * i + j * j) <= 4)
+	for (int i = -cursor_radius; i <= cursor_radius; i++)
+		for (int j = -cursor_radius; j <= cursor_radius; j++)
+			if ((i * i + j * j) <= cursor_radius * cursor_radius)
 			{
 				int x = px + i;
 				int y = py + j;
@@ -87,4 +87,3 @@ void	draw_minimap(t_config *cfg)
 				}
 			}
 }
-
