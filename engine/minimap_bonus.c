@@ -1,116 +1,111 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.c                                          :+:      :+:    :+:   */
+/*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 09:33:45 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 09:56:27 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static void	put_pixel_to_img(t_img_data *img, int x, int y, int color)
+static int	minimap_get_color(char c)
 {
+	if (c == '1')
+		return (WALL_COLOR);
+	if (c == '0')
+		return (FLOOR_COLOR);
+	return (VOID_COLOR);
+}
+
+static void	minimap_draw_square(t_minimap *ctx, int px, int py, int color)
+{
+	int		i;
+	int		j;
 	char	*dst;
 
-	dst = img->addr;
-	dst += y * img->line_len;
-	dst += x * (img->bpp / 8);
-	*(unsigned int *)dst = color;
-}
-
-static void	minimap_draw_square(t_img_data *img, t_ivec pos, int color)
-{
-	t_ivec	i;
-	t_ivec	pixel;
-
-	i.y = 0;
-	while (i.y < MINIMAP_SCALE)
+	i = 0;
+	while (i < ctx->scale)
 	{
-		i.x = 0;
-		while (i.x < MINIMAP_SCALE)
+		j = 0;
+		while (j < ctx->scale)
 		{
-			pixel.x = pos.x + i.x;
-			pixel.y = pos.y + i.y;
-			if (pixel.x >= 0 && pixel.x < img->width && pixel.y >= 0
-				&& pixel.y < img->height)
-				put_pixel_to_img(img, pixel.x, pixel.y, color);
-			i.x++;
+			if (px + i >= 0 && px + i < ctx->img->width && py + j >= 0 && py
+				+ j < ctx->img->height)
+			{
+				dst = ctx->img->addr + ((py + j) * ctx->img->line_len + (px + i)
+						* (ctx->img->bpp / 8));
+				*(unsigned int *)dst = color;
+			}
+			j++;
 		}
-		i.y++;
+		i++;
 	}
 }
 
-static void	draw_minimap_content(t_config *cfg, t_ivec origin, int scale)
+static void	minimap_draw_cells(t_config *cfg, t_minimap *ctx)
 {
-	t_ivec	map;
-	int		color;
+	int	mx;
+	int	my;
 
-	map.y = 0;
-	while (map.y < cfg->map.height)
+	my = 0;
+	while (my < cfg->map.height)
 	{
-		map.x = 0;
-		while (map.x < cfg->map.width)
+		mx = 0;
+		while (mx < cfg->map.width)
 		{
-			if (cfg->map.map[map.y][map.x] == '1')
-				color = 0x00755428;
-			else if (cfg->map.map[map.y][map.x] == '0')
-				color = 0x00EDD8B0;
-			else
-				color = 0x00FFFFFF;
-			minimap_draw_square(&cfg->win, (t_ivec){origin.x + map.x * scale,
-				origin.y + map.y * scale}, color);
-			map.x++;
+			minimap_draw_square(ctx, ctx->origin_x + mx * ctx->scale,
+				ctx->origin_y + my * ctx->scale,
+				minimap_get_color(cfg->map.map[my][mx]));
+			mx++;
 		}
-		map.y++;
+		my++;
 	}
 }
 
-static void	draw_player_indicator(t_config *cfg, t_ivec origin, int scale)
+static void	minimap_draw_cursor(t_config *cfg, t_minimap *ctx)
 {
-	t_ivec	i;
-	t_ivec	center;
-	int		radius;
+	int	px;
+	int	py;
+	int	i;
+	int	j;
 
-	radius = 2;
-	if (scale >= 6)
-		radius = 3;
-	center.x = origin.x + (int)(cfg->player.pos_x * scale);
-	center.y = origin.y + (int)(cfg->player.pos_y * scale);
-	i.y = -radius;
-	while (i.y <= radius)
+	px = ctx->origin_x + (int)(cfg->player.pos_x * ctx->scale);
+	py = ctx->origin_y + (int)(cfg->player.pos_y * ctx->scale);
+	i = -3;
+	while (i <= 3)
 	{
-		i.x = -radius;
-		while (i.x <= radius)
+		j = -3;
+		while (j <= 3)
 		{
-			if ((i.x * i.x + i.y * i.y) <= radius * radius && center.x
-				+ i.x >= 0 && center.x + i.x < cfg->win.width && center.y
-				+ i.y >= 0 && center.y + i.y < cfg->win.height)
-				put_pixel_to_img(&cfg->win, center.x + i.x, center.y + i.y,
-					0x00FF2222);
-			i.x++;
+			minimap_draw_square(ctx, px + i, py + j, CURSOR_COLOR);
+			j++;
 		}
-		i.y++;
+		i++;
 	}
 }
 
 void	draw_minimap(t_config *cfg)
 {
-	int		scale;
-	int		minimap_height;
-	t_ivec	origin;
+	t_minimap	ctx;
+	int			scale_x;
+	int			scale_y;
+	int			mh;
 
-	scale = (cfg->win.width / 4) / cfg->map.width;
-	if ((cfg->win.height / 4) / cfg->map.height < scale)
-		scale = (cfg->win.height / 4) / cfg->map.height;
-	if (scale < 3)
-		scale = 3;
-	minimap_height = cfg->map.height * scale;
-	origin.x = MINIMAP_MARGIN;
-	origin.y = cfg->win.height - minimap_height - MINIMAP_MARGIN;
-	draw_minimap_content(cfg, origin, scale);
-	draw_player_indicator(cfg, origin, scale);
+	ctx.img = &cfg->win;
+	scale_x = (cfg->win.width / 4) / cfg->map.width;
+	scale_y = (cfg->win.height / 4) / cfg->map.height;
+	ctx.scale = scale_x;
+	if (scale_y < scale_x)
+		ctx.scale = scale_y;
+	if (ctx.scale < 3)
+		ctx.scale = 3;
+	mh = cfg->map.height * ctx.scale;
+	ctx.origin_x = MINIMAP_MARGIN;
+	ctx.origin_y = ctx.img->height - mh - MINIMAP_MARGIN;
+	minimap_draw_cells(cfg, &ctx);
+	minimap_draw_cursor(cfg, &ctx);
 }
