@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:21:07 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 07:24:53 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define KEY_ESC 65307
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
-#define MINIMAP_MAXSIZE 200
+#define MINIMAP_MAXSIZE 200 
 
 // Store the lines of the Map
 typedef struct s_list
