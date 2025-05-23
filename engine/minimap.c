@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 06:23:20 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 06:33:48 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	minimap_draw_square(t_img_data *img, int x, int y, int color)
 		}
 	}
 }
-
+/*
 void	draw_minimap(t_config *cfg)
 {
 	t_map_data *map = &cfg->map;
@@ -73,4 +73,68 @@ void	draw_minimap(t_config *cfg)
 					*(unsigned int *)dst = 0x00FF2222;
 				}
 			}
+} */
+
+void	draw_minimap(t_config *cfg)
+{
+	t_map_data	*map = &cfg->map;
+	t_img_data	*img = &cfg->win;
+	int			map_x, map_y;
+	int			color;
+
+	printf("=== [MINIMAP DEBUG] ===\n");
+	if (!map->map)
+	{
+		printf("ERREUR: map->map est NULL !\n");
+		return;
+	}
+	printf("Map width: %d, height: %d\n", map->width, map->height);
+
+	for (map_y = 0; map_y < map->height; map_y++)
+	{
+		if (!map->map[map_y])
+		{
+			printf("ERREUR: map->map[%d] est NULL !\n", map_y);
+			continue;
+		}
+		printf("Ligne %d : %s\n", map_y, map->map[map_y]);
+		for (map_x = 0; map_x < map->width; map_x++)
+		{
+			char cell = map->map[map_y][map_x];
+			printf("map_y=%d, map_x=%d, cell=%c\n", map_y, map_x, cell);
+
+			if (cell == '1')
+				color = 0x00FF00FF; // Mur : magenta
+			else if (cell == '0')
+				color = 0x0000FF00; // Sol : vert
+			else
+				color = 0x00FFFFFF; // Autre : blanc
+
+			int draw_x = MINIMAP_MARGIN + map_x * MINIMAP_SCALE;
+			int draw_y = MINIMAP_MARGIN + map_y * MINIMAP_SCALE;
+
+			printf(" -> draw_x: %d, draw_y: %d\n", draw_x, draw_y);
+
+			minimap_draw_square(img, draw_x, draw_y, color);
+		}
+	}
+
+	int px = MINIMAP_MARGIN + (int)(cfg->player.pos_x * MINIMAP_SCALE);
+	int py = MINIMAP_MARGIN + (int)(cfg->player.pos_y * MINIMAP_SCALE);
+	printf("JOUEUR: pos_x = %f, pos_y = %f, px = %d, py = %d\n",
+		cfg->player.pos_x, cfg->player.pos_y, px, py);
+
+	for (int i = -2; i <= 2; i++)
+		for (int j = -2; j <= 2; j++)
+			if ((i * i + j * j) <= 4)
+			{
+				int x = px + i;
+				int y = py + j;
+				if (x >= 0 && x < img->width && y >= 0 && y < img->height)
+				{
+					char *dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+					*(unsigned int *)dst = 0x00FF2222;
+				}
+			}
+	printf("=== [MINIMAP DEBUG END] ===\n");
 }
