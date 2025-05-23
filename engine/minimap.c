@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 06:47:19 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 06:50:56 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,27 @@ void	draw_minimap(t_config *cfg)
 	int map_x, map_y;
 	int color;
 
+	// Affiche la taille réelle du buffer d'image utilisé pour la mini-map
 	printf("img->width = %d, img->height = %d\n", img->width, img->height);
+
+	// Boucle sur toute la map pour afficher chaque case
 	for (map_y = 0; map_y < map->height; map_y++)
 	{
 		for (map_x = 0; map_x < map->width; map_x++)
 		{
 			char cell = map->map[map_y][map_x];
 			if (cell == '1')
-				color = 0x00FF00FF; // Magenta (255, 0, 255)
+				color = 0x00FF00FF; // Mur : magenta
 			else if (cell == '0')
-				color = 0x0000FF00; // Vert (0, 255, 0)
+				color = 0x0000FF00; // Sol : vert
 			else
-				color = 0x00FFFFFF; // Blanc (255, 255, 255)
+				color = 0x00FFFFFF; // Autre : blanc
 
-			minimap_draw_square(img, MINIMAP_MARGIN + map_x * MINIMAP_SCALE,
-				MINIMAP_MARGIN + map_y * MINIMAP_SCALE, color);
+			minimap_draw_square(img,
+				MINIMAP_MARGIN + map_x * MINIMAP_SCALE,
+				MINIMAP_MARGIN + map_y * MINIMAP_SCALE,
+				color
+			);
 		}
 	}
 	int px = MINIMAP_MARGIN + (int)(cfg->player.pos_x * MINIMAP_SCALE);
@@ -68,8 +74,7 @@ void	draw_minimap(t_config *cfg)
 				int y = py + j;
 				if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 				{
-					char *dst = img->addr + (y * img->line_len + x * (img->bpp
-								/ 8));
+					char *dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 					*(unsigned int *)dst = 0x00FF2222;
 				}
 			}

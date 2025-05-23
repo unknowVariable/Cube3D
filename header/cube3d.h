@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 06:13:05 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 06:50:10 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
-# define MINIMAP_SCALE 10
-# define MINIMAP_MARGIN 20
+# define MINIMAP_SCALE 40
+# define MINIMAP_MARGIN 0
 
 // Store the lines of the Map
 typedef struct s_list
