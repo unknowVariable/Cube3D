@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:24:53 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 09:57:49 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@
 # define KEY_ESC 65307
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
-#define MINIMAP_MAXSIZE 200 
+# define MINIMAP_MAXSIZE 200
+# define CURSOR_COLOR 0x00FF2222
+# define WALL_COLOR 0x00755428
+# define FLOOR_COLOR 0x00EDD8B0
+# define VOID_COLOR 0x00FFFFFF
 
 // Store the lines of the Map
 typedef struct s_list
@@ -45,6 +49,14 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct s_minimap
+{
+	t_img_data		*img;
+	int				scale;
+	int				origin_x;
+	int				origin_y;
+}					t_minimap;
 
 // Stores Data relative to the MAP and player position
 typedef struct s_map_data
@@ -79,6 +91,14 @@ typedef struct s_ray
 	double			perp_wall_dist;
 	double			wall_x;
 }					t_ray;
+
+typedef struct s_minimap
+{
+	t_img_data		*img;
+	int				scale;
+	int				origin_x;
+	int				origin_y;
+}					t_minimap;
 
 typedef struct s_img_data
 {
