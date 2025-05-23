@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:09:10 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 07:14:02 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ void	draw_minimap(t_config *cfg)
 	int scale_y = (img->height - 2 * MINIMAP_MARGIN) / map->height;
 	int minimap_scale = (scale_x < scale_y) ? scale_x : scale_y;
 
+	// SÉCURITÉ : scale minimal de 2 px
+	if (minimap_scale < 2)
+		minimap_scale = 2;
+
 	int origin_x = MINIMAP_MARGIN;
 	int origin_y = img->height - (map->height * minimap_scale) - MINIMAP_MARGIN;
 
@@ -62,6 +66,10 @@ void	draw_minimap(t_config *cfg)
 				color = 0x00EDD8B0; // Sol beige
 			else
 				color = 0x00FFFFFF; // Vide/blanc
+
+			printf("Dessine case (%d, %d) cell=%c -> (%d, %d)\n",
+				map_x, map_y, cell,
+				origin_x + map_x * minimap_scale, origin_y + map_y * minimap_scale);
 
 			minimap_draw_square(img,
 				origin_x + map_x * minimap_scale,
