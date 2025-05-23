@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:14:02 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 07:21:31 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,20 @@ void	draw_minimap(t_config *cfg)
 {
 	t_map_data *map = &cfg->map;
 	t_img_data *img = &cfg->win;
-	int map_x, map_y;
-	int color;
+	int map_x, map_y, color;
 
-	// Calcul dynamique du scale
-	int scale_x = (img->width - 2 * MINIMAP_MARGIN) / map->width;
-	int scale_y = (img->height - 2 * MINIMAP_MARGIN) / map->height;
+	// Calcule le scale pour que la mini-map ne dépasse jamais MINIMAP_MAXSIZE
+	int scale_x = MINIMAP_MAXSIZE / map->width;
+	int scale_y = MINIMAP_MAXSIZE / map->height;
 	int minimap_scale = (scale_x < scale_y) ? scale_x : scale_y;
 
-	// SÉCURITÉ : scale minimal de 2 px
-	if (minimap_scale < 2)
-		minimap_scale = 2;
+	if (minimap_scale < 2) minimap_scale = 2; // sécurité, pas moins de 2px/case
+
+	int minimap_width = map->width * minimap_scale;
+	int minimap_height = map->height * minimap_scale;
 
 	int origin_x = MINIMAP_MARGIN;
-	int origin_y = img->height - (map->height * minimap_scale) - MINIMAP_MARGIN;
-
-	printf("origin_y = %d, minimap_scale = %d\n", origin_y, minimap_scale);
+	int origin_y = img->height - minimap_height - MINIMAP_MARGIN;
 
 	for (map_y = 0; map_y < map->height; map_y++)
 	{
@@ -61,24 +59,20 @@ void	draw_minimap(t_config *cfg)
 		{
 			char cell = map->map[map_y][map_x];
 			if (cell == '1')
-				color = 0x00755428; // Mur marron
+				color = 0x00755428; // mur marron
 			else if (cell == '0')
-				color = 0x00EDD8B0; // Sol beige
+				color = 0x00EDD8B0; // sol beige
 			else
-				color = 0x00FFFFFF; // Vide/blanc
-
-			printf("Dessine case (%d, %d) cell=%c -> (%d, %d)\n",
-				map_x, map_y, cell,
-				origin_x + map_x * minimap_scale, origin_y + map_y * minimap_scale);
+				color = 0x00FFFFFF; // vide/blanc
 
 			minimap_draw_square(img,
 				origin_x + map_x * minimap_scale,
 				origin_y + map_y * minimap_scale,
-				color
-			);
+				color);
 		}
 	}
-	// Affichage du joueur
+
+	// Affichage du joueur (jaune)
 	int px = origin_x + (int)(cfg->player.pos_x * minimap_scale);
 	int py = origin_y + (int)(cfg->player.pos_y * minimap_scale);
 	for (int i = -2; i <= 2; i++)
@@ -94,3 +88,4 @@ void	draw_minimap(t_config *cfg)
 				}
 			}
 }
+
