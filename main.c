@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/23 00:09:44 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header/cube3d.h"
 
 int	main(int argc, char **argv)
@@ -13,16 +25,17 @@ int	main(int argc, char **argv)
 	ft_bzero(&conf, sizeof(t_config));
 	conf.c_color = -1;
 	conf.f_color = -1;
+	conf.jumping = 0;
+	conf.jump_offset = 0.0;
+	conf.jump_speed = 0.0;
 	parse_file(fd, &conf);
 	close(fd);
 	init_mlx(&conf);
 	init_player(&conf);
 	mlx_hook(conf.mlx.win_ptr, 17, 0, close_window, &conf);
-	mlx_hook(conf.mlx.win_ptr, 2, 1L<<0, key_press, &conf);    // Key down (pressée)
-  mlx_hook(conf.mlx.win_ptr, 3, 1L<<1, key_release, &conf);  // Key up (relâchée)
-  mlx_loop_hook(conf.mlx.mlx_ptr, game_loop, &conf);   
-	render_scene(&conf); // Affiche la première image
+	mlx_hook(conf.mlx.win_ptr, 2, 1L << 0, key_press, &conf);
+	mlx_hook(conf.mlx.win_ptr, 3, 1L << 1, key_release, &conf);
+	mlx_loop_hook(conf.mlx.mlx_ptr, game_loop, &conf);
 	mlx_loop(conf.mlx.mlx_ptr);
 	return (0);
 }
-///bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

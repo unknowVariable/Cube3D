@@ -109,12 +109,16 @@ typedef struct s_config
 	int				f_color;
 	int				c_color;
 	int				keys[70000];
-
+	double			move_speed;
+	double			rot_speed;
 	t_map_data		map;
 	t_mlx			mlx;
 	t_player		player;
 	t_img_data		win;
 	t_ray			ray;
+	int				jumping;
+	float			jump_offset;
+	float			jump_speed;
 }					t_config;
 
 // ** ENGINE ** //
@@ -195,8 +199,9 @@ void				check_map_closed(char **map, int height, int width,
 						t_config *c);
 
 /* Parsing Map utils 3 */
-void	clean_and_exit(t_config *cfg, char *s1, char *s2, char *msg);
-void	create_padded_line(t_map_data *map, char *trimmed);
+void				clean_and_exit(t_config *cfg, char *s1, char *s2,
+						char *msg);
+void				create_padded_line(t_map_data *map, char *trimmed);
 
 /* Parsing utils */
 int					is_identifier(char *line);
