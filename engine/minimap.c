@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 06:50:56 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 07:04:38 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,31 @@ void	draw_minimap(t_config *cfg)
 	t_img_data *img = &cfg->win;
 	int map_x, map_y;
 	int color;
+	int origin_x = MINIMAP_MARGIN;
+	int origin_y = img->height - (map->height * MINIMAP_SCALE) - MINIMAP_MARGIN;
 
-	// Affiche la taille réelle du buffer d'image utilisé pour la mini-map
-	printf("img->width = %d, img->height = %d\n", img->width, img->height);
-
-	// Boucle sur toute la map pour afficher chaque case
 	for (map_y = 0; map_y < map->height; map_y++)
 	{
 		for (map_x = 0; map_x < map->width; map_x++)
 		{
 			char cell = map->map[map_y][map_x];
 			if (cell == '1')
-				color = 0x00FF00FF; // Mur : magenta
+				color = 0x00755428; // Mur marron
 			else if (cell == '0')
-				color = 0x0000FF00; // Sol : vert
+				color = 0x00EDD8B0; // Sol beige
 			else
-				color = 0x00FFFFFF; // Autre : blanc
+				color = 0x00FFFFFF; // Vide/blanc
 
 			minimap_draw_square(img,
-				MINIMAP_MARGIN + map_x * MINIMAP_SCALE,
-				MINIMAP_MARGIN + map_y * MINIMAP_SCALE,
+				origin_x + map_x * MINIMAP_SCALE,
+				origin_y + map_y * MINIMAP_SCALE,
 				color
 			);
 		}
 	}
-	int px = MINIMAP_MARGIN + (int)(cfg->player.pos_x * MINIMAP_SCALE);
-	int py = MINIMAP_MARGIN + (int)(cfg->player.pos_y * MINIMAP_SCALE);
+	// Affichage du joueur (jaune/orange)
+	int px = origin_x + (int)(cfg->player.pos_x * MINIMAP_SCALE);
+	int py = origin_y + (int)(cfg->player.pos_y * MINIMAP_SCALE);
 	for (int i = -2; i <= 2; i++)
 		for (int j = -2; j <= 2; j++)
 			if ((i * i + j * j) <= 4)
@@ -75,7 +74,7 @@ void	draw_minimap(t_config *cfg)
 				if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 				{
 					char *dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-					*(unsigned int *)dst = 0x00FF2222;
+					*(unsigned int *)dst = 0x00FFD700;
 				}
 			}
 }
