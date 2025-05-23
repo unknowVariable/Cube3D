@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 22:15:17 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 06:12:42 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_mlx(t_config *conf)
 	conf->mlx.mlx_ptr = mlx_init();
 	if (!conf->mlx.mlx_ptr)
 		clean_exit(conf, "Erreur MLX");
-	conf->mlx.win_ptr = mlx_new_window(conf->mlx.mlx_ptr, 1024, 768, "Cube3D");
+	conf->mlx.win_ptr = mlx_new_window(conf->mlx.mlx_ptr, 640, 480, "Cube3D");
 	if (!conf->mlx.win_ptr)
 		clean_exit(conf, "Erreur création fenêtre");
 	conf->mlx.tex_no.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,

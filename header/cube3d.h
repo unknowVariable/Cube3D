@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/23 07:24:53 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
@@ -12,8 +24,8 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 768
+# define WIN_WIDTH 640
+# define WIN_HEIGHT 480
 # define TEX_WIDTH 128
 # define TEX_HEIGHT 128
 # define KEY_W 119
@@ -23,6 +35,9 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
+# define MINIMAP_SCALE 40
+# define MINIMAP_MARGIN 0
+#define MINIMAP_MAXSIZE 200 
 
 // Store the lines of the Map
 typedef struct s_list
@@ -120,7 +135,8 @@ typedef struct s_config
 
 // ** ENGINE ** //
 
-/**/
+/* minimap */
+void				draw_minimap(t_config *cfg);
 
 /* handle_key */
 int					key_press(int key, void *param);
@@ -196,8 +212,9 @@ void				check_map_closed(char **map, int height, int width,
 						t_config *c);
 
 /* Parsing Map utils 3 */
-void	clean_and_exit(t_config *cfg, char *s1, char *s2, char *msg);
-void	create_padded_line(t_map_data *map, char *trimmed);
+void				clean_and_exit(t_config *cfg, char *s1, char *s2,
+						char *msg);
+void				create_padded_line(t_map_data *map, char *trimmed);
 
 /* Parsing utils */
 int					is_identifier(char *line);
