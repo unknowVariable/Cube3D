@@ -17,8 +17,6 @@ static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
 	ray->camera_x = 2 * conf->win.x / (double)WIN_WIDTH - 1;
 	ray->ray_dir_x = conf->player.dir_x + conf->player.plane_x * ray->camera_x;
 	ray->ray_dir_y = conf->player.dir_y + conf->player.plane_y * ray->camera_x;
-	ray->map_x = (int)conf->player.pos_x;
-	ray->map_y = (int)conf->player.pos_y;
 	if (ray->ray_dir_x == 0)
 		ray->delta_x = 1e30;
 	else
@@ -32,6 +30,8 @@ static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
 void	cast_ray(t_config *conf, t_ray *ray)
 {
 	init_ray_dir_and_delta(conf, ray);
+	ray->map_x = (int)conf->player.pos_x;
+	ray->map_y = (int)conf->player.pos_y;
 	ray->perp_wall_dist = perform_dda(conf, ray);
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
@@ -81,9 +81,7 @@ void	render_scene(t_config *conf)
 				&tex_img.line_len, &tex_img.endian);
 		draw_column(conf, tex_img);
 	}
-
 	draw_minimap(conf);
-
 	mlx_put_image_to_window(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->win.img,
 		0, 0);
 	mlx_destroy_image(conf->mlx.mlx_ptr, conf->win.img);
