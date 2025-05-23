@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:04:38 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 07:09:10 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,16 @@ void	draw_minimap(t_config *cfg)
 	t_img_data *img = &cfg->win;
 	int map_x, map_y;
 	int color;
+
+	// Calcul dynamique du scale
+	int scale_x = (img->width - 2 * MINIMAP_MARGIN) / map->width;
+	int scale_y = (img->height - 2 * MINIMAP_MARGIN) / map->height;
+	int minimap_scale = (scale_x < scale_y) ? scale_x : scale_y;
+
 	int origin_x = MINIMAP_MARGIN;
-	int origin_y = img->height - (map->height * MINIMAP_SCALE) - MINIMAP_MARGIN;
+	int origin_y = img->height - (map->height * minimap_scale) - MINIMAP_MARGIN;
+
+	printf("origin_y = %d, minimap_scale = %d\n", origin_y, minimap_scale);
 
 	for (map_y = 0; map_y < map->height; map_y++)
 	{
@@ -56,15 +64,15 @@ void	draw_minimap(t_config *cfg)
 				color = 0x00FFFFFF; // Vide/blanc
 
 			minimap_draw_square(img,
-				origin_x + map_x * MINIMAP_SCALE,
-				origin_y + map_y * MINIMAP_SCALE,
+				origin_x + map_x * minimap_scale,
+				origin_y + map_y * minimap_scale,
 				color
 			);
 		}
 	}
-	// Affichage du joueur (jaune/orange)
-	int px = origin_x + (int)(cfg->player.pos_x * MINIMAP_SCALE);
-	int py = origin_y + (int)(cfg->player.pos_y * MINIMAP_SCALE);
+	// Affichage du joueur
+	int px = origin_x + (int)(cfg->player.pos_x * minimap_scale);
+	int py = origin_y + (int)(cfg->player.pos_y * minimap_scale);
 	for (int i = -2; i <= 2; i++)
 		for (int j = -2; j <= 2; j++)
 			if ((i * i + j * j) <= 4)
