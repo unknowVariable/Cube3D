@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:23:29 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/23 07:39:40 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	draw_minimap(t_config *cfg)
 				if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 				{
 					char *dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
-					*(unsigned int *)dst = 0x00FFD700;
+					*(unsigned int *)dst = 0x00FF2222;
 				}
 			}
 }
