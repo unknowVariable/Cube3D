@@ -33,48 +33,48 @@ static void	draw_minimap_ray(t_img_data *img, int x0, int y0, int x1, int y1, in
 	}
 }
 
-
-
-
-#include <math.h> // pour cos/sin/M_PI
-
-static void	draw_minimap_rays(t_config *cfg, int origin_x, int origin_y, int minimap_scale)
+void	init_minimap_ray(t_config *conf, t_ray *ray, double cam_x)
 {
-	double max_dist = 2.5;
-	double fov = M_PI / 3.0; // 60 degrés
-	double half_fov = fov / 2.0;
-	int num_rays = 50; // nombre de rayons à tracer dans le cône
+	ray->ray_dir_x = conf->player.dir_x + conf->player.plane_x * cam_x;
+	ray->ray_dir_y = conf->player.dir_y + conf->player.plane_y * cam_x;
+	if (ray->ray_dir_x == 0)
+		ray->delta_x = 1e30;
+	else
+		ray->delta_x = my_abs(1 / ray->ray_dir_x);
+	if (ray->ray_dir_y == 0)
+		ray->delta_y = 1e30;
+	else
+		ray->delta_y = my_abs(1 / ray->ray_dir_y);
+}
 
-	for (int i = 0; i < num_rays; i++)
+void	draw_minimap_rays(t_config *cfg, int origin_x, int origin_y, int scale)
+{
+	t_ray	ray;
+	int		i;
+	double	cam_x;
+	double	hit_x;
+	double	hit_y;
+	int		px;
+	int		py;
+	int		rx;
+	int		ry;
+
+	i = 0;
+	while (i < 40)
 	{
-		double ratio = (double)i / (num_rays - 1);
-		double angle = -half_fov + ratio * fov;
-
-		// direction du rayon avec rotation
-		double dir_x = cfg->player.dir_x * cos(angle) - cfg->player.dir_y * sin(angle);
-		double dir_y = cfg->player.dir_x * sin(angle) + cfg->player.dir_y * cos(angle);
-
-		t_ray ray;
-		ray.ray_dir_x = dir_x;
-		ray.ray_dir_y = dir_y;
+		cam_x = 2.0 * i / 40.0 - 1.0;
+		init_minimap_ray(cfg, &ray, cam_x);
 		ray.map_x = (int)cfg->player.pos_x;
 		ray.map_y = (int)cfg->player.pos_y;
-		ray.delta_x = (ray.ray_dir_x == 0) ? 1e30 : my_abs(1 / ray.ray_dir_x);
-		ray.delta_y = (ray.ray_dir_y == 0) ? 1e30 : my_abs(1 / ray.ray_dir_y);
-
-		double dist = perform_dda(cfg, &ray);
-		if (dist > max_dist)
-			dist = max_dist;
-
-		double hit_x = cfg->player.pos_x + ray.ray_dir_x * dist;
-		double hit_y = cfg->player.pos_y + ray.ray_dir_y * dist;
-
-		int px = origin_x + (int)(cfg->player.pos_x * minimap_scale);
-		int py = origin_y + (int)(cfg->player.pos_y * minimap_scale);
-		int rx = origin_x + (int)(hit_x * minimap_scale);
-		int ry = origin_y + (int)(hit_y * minimap_scale);
-
-		draw_minimap_ray(&cfg->win, px, py, rx, ry, 0x00FFFFFF); // jaune clair
+		ray.perp_wall_dist = perform_dda(cfg, &ray);
+		hit_x = cfg->player.pos_x + ray.ray_dir_x * ray.perp_wall_dist;
+		hit_y = cfg->player.pos_y + ray.ray_dir_y * ray.perp_wall_dist;
+		px = origin_x + (int)(cfg->player.pos_x * scale);
+		py = origin_y + (int)(cfg->player.pos_y * scale);
+		rx = origin_x + (int)(hit_x * scale);
+		ry = origin_y + (int)(hit_y * scale);
+		draw_minimap_ray(&cfg->win, px, py, rx, ry, COLOR_CUIVRE);
+		i++;
 	}
 }
 
@@ -101,62 +101,110 @@ static void	minimap_draw_square(t_img_data *img, int x, int y, int color)
 	}
 }
 
-void	draw_minimap(t_config *cfg)
+
+typedef struct s_minimap
 {
-	t_map_data *map = &cfg->map;
-	t_img_data *img = &cfg->win;
-	int map_x, map_y, color;
+	int	scale;
+	int	origin_x;
+	int	origin_y;
+	int	cursor_px;
+	int	cursor_py;
+}		t_minimap;
 
-	int max_width = img->width / 4;
-	int max_height = img->height / 4;
-	int scale_x = max_width / map->width;
-	int scale_y = max_height / map->height;
-	int minimap_scale = (scale_x < scale_y) ? scale_x : scale_y;
-	if (minimap_scale < 3) minimap_scale = 3;
+static int	get_minimap_scale(t_img_data *img, t_map_data *map)
+{
+	int	max_width;
+	int	max_height;
+	int	scale_x;
+	int	scale_y;
+	int	scale;
 
-	int minimap_height = map->height * minimap_scale;
-	int origin_x = MINIMAP_MARGIN;
-	int origin_y = img->height - minimap_height - MINIMAP_MARGIN;
+	max_width = img->width / 4;
+	max_height = img->height / 4;
+	scale_x = max_width / map->width;
+	scale_y = max_height / map->height;
+	if (scale_x < scale_y)
+		scale = scale_x;
+	else
+		scale = scale_y;
+	if (scale < 3)
+		scale = 3;
+	return (scale);
+}
 
-	for (map_y = 0; map_y < map->height; map_y++)
+static void	draw_minimap_player(t_img_data *img, t_minimap *mmap, int radius)
+{
+	int	dx;
+	int	dy;
+	int	x;
+	int	y;
+	char	*dst;
+
+	dy = -radius;
+	while (dy <= radius)
 	{
-		for (map_x = 0; map_x < map->width; map_x++)
+		dx = -radius;
+		while (dx <= radius)
 		{
-			char cell = (map_x < (int)ft_strlen(map->map[map_y])) ? map->map[map_y][map_x] : ' ';
-			if (cell == '1')
-				color = 0x00755428; // mur marron
-			else if (cell == '0' || ft_strchr("NESW", cell))
-				color = 0x00EDD8B0; // sol beige
-			else
-				color = 0x00000000; // vide/blanc
-
-			minimap_draw_square(img,
-				origin_x + map_x * minimap_scale,
-				origin_y + map_y * minimap_scale,
-				color);
-		}
-	}
-
-	// Curseur joueur ROUGE, carré plein et uniforme
-	int cursor_radius = 3;
-	int px = origin_x + (int)(cfg->player.pos_x * minimap_scale);
-	int py = origin_y + (int)(cfg->player.pos_y * minimap_scale);
-
-	for (int dy = -cursor_radius; dy <= cursor_radius; dy++)
-	{
-		for (int dx = -cursor_radius; dx <= cursor_radius; dx++)
-		{
-			if (dx * dx + dy * dy <= cursor_radius * cursor_radius)
+			if (dx * dx + dy * dy <= radius * radius)
 			{
-				int x = px + dx;
-				int y = py + dy;
+				x = mmap->cursor_px + dx;
+				y = mmap->cursor_py + dy;
 				if (x >= 0 && x < img->width && y >= 0 && y < img->height)
 				{
-					char *dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
+					dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 					*(unsigned int *)dst = 0x00FF2222;
 				}
 			}
+			dx++;
 		}
+		dy++;
 	}
-	draw_minimap_rays(cfg, origin_x, origin_y, minimap_scale);
 }
+
+void	draw_minimap(t_config *cfg)
+{
+	t_map_data	*map;
+	t_img_data	*img;
+	t_minimap	mmap;
+	int			map_x;
+	int			map_y;
+	int			color;
+	char		cell;
+
+	map = &cfg->map;
+	img = &cfg->win;
+	mmap.scale = get_minimap_scale(img, map);
+	mmap.origin_x = MINIMAP_MARGIN;
+	mmap.origin_y = img->height - (map->height * mmap.scale) - MINIMAP_MARGIN;
+	mmap.cursor_px = mmap.origin_x + (int)(cfg->player.pos_x * mmap.scale);
+	mmap.cursor_py = mmap.origin_y + (int)(cfg->player.pos_y * mmap.scale);
+
+	map_y = 0;
+	while (map_y < map->height)
+	{
+		map_x = 0;
+		while (map_x < map->width)
+		{
+			if (map_x < (int)ft_strlen(map->map[map_y]))
+				cell = map->map[map_y][map_x];
+			else
+				cell = ' ';
+			if (cell == '1')
+				color = COLOR_DARK_BROWN;
+			else if (cell == '0' || ft_strchr("NESW", cell))
+				color = COLOR_BEIGE_CLAIR;
+			else
+				color = COLOR_TETE_BRULEE;
+			minimap_draw_square(img,
+				mmap.origin_x + map_x * mmap.scale,
+				mmap.origin_y + map_y * mmap.scale,
+				color);
+			map_x++;
+		}
+		map_y++;
+	}
+	draw_minimap_player(img, &mmap, 3);
+	draw_minimap_rays(cfg, mmap.origin_x, mmap.origin_y, mmap.scale);
+}
+

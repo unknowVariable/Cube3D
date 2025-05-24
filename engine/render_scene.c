@@ -12,7 +12,7 @@
 
 #include "cube3d.h"
 
-static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
+void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
 {
 	ray->camera_x = 2 * conf->win.x / (double)WIN_WIDTH - 1;
 	ray->ray_dir_x = conf->player.dir_x + conf->player.plane_x * ray->camera_x;

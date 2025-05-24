@@ -38,6 +38,17 @@
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
 #define MINIMAP_MAXSIZE 200 
+#define COLOR_SALMON  0x00FF8A5B
+#define COLOR_RED_BROWN  0x00CC6633
+#define COLOR_DARK_CYAN  0x00208080
+#define COLOR_CUIVRE  0x00E26D5C
+#define COLOR_ORANGE_GOLD  0x00FFC66D
+#define COLOR_DARK_BLUE  0x00101030
+#define COLOR_ANTHRACITE_GREY  0x00222222
+#define COLOR_TETE_BRULEE  0x003B2F2F
+#define COLOR_DARK_BROWN  0x00755428
+#define COLOR_BEIGE_CLAIR  0x00EDD8B0
+
 
 // Store the lines of the Map
 typedef struct s_list
@@ -153,6 +164,7 @@ void				strafe_right(t_config *conf, double speed);
 void				rotate_view(t_config *conf, double rot);
 
 // --- Prototypes raycasting ---
+void				init_ray_dir_and_delta(t_config *conf, t_ray *ray);
 void				render_scene(t_config *conf);
 void				draw_column(t_config *conf, t_img_data tex_img);
 double				perform_dda(t_config *conf, t_ray *ray);
