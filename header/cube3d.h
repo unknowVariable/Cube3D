@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 07:24:53 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 03:24:07 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
+# define MOUSESENSITIVITY 0.01
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
 #define MINIMAP_MAXSIZE 200 
@@ -146,8 +147,13 @@ typedef struct s_config
 
 // ** ENGINE ** //
 
+
+/* mouse_move_bonus.c */
+int mouse_move(int x, int y, void *param);
+
 /* minimap */
 void				draw_minimap(t_config *cfg);
+
 
 /* handle_key */
 int					key_press(int key, void *param);
