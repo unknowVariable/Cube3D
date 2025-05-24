@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 05:56:06 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 06:26:28 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define MINIMAP_MARGIN 0
 # define MINIMAP_MAXSIZE 200
 # define COIN_ANIM_FRAMES 6
-# define COIN_ANIM_SPEED 20
+# define COIN_ANIM_SPEED 12
 
 // Store the lines of the Map
 typedef struct s_list
