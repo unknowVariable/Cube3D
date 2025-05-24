@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 05:35:49 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 05:56:06 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@
 # define MOUSESENSITIVITY 0.01
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
-#define MINIMAP_MAXSIZE 200
-#define COIN_ANIM_FRAMES 6
-#define COIN_ANIM_SPEED  20
-
+# define MINIMAP_MAXSIZE 200
+# define COIN_ANIM_FRAMES 6
+# define COIN_ANIM_SPEED 20
 
 // Store the lines of the Map
 typedef struct s_list
@@ -121,11 +120,11 @@ typedef struct s_player
 
 typedef struct s_coin_anim
 {
-    void    *img[COIN_ANIM_FRAMES];
-    int     frame;
-    int     width;
-    int     height;
-}   t_coin_anim;
+	void			*img[COIN_ANIM_FRAMES];
+	int				frame;
+	int				width;
+	int				height;
+}					t_coin_anim;
 
 typedef struct s_config
 {
@@ -138,7 +137,7 @@ typedef struct s_config
 	int				keys[70000];
 	double			move_speed;
 	double			rot_speed;
-	int 			coin_count;
+	int				coin_count;
 	t_map_data		map;
 	t_mlx			mlx;
 	t_player		player;
@@ -150,15 +149,15 @@ typedef struct s_config
 // ** ENGINE ** //
 
 /* coin */
-void    load_coin_anim(t_config *cfg);
-void    draw_coin_anim(t_config *cfg);
+void				load_coin_anim(t_config *cfg);
+void				draw_coin_anim(t_config *cfg);
+void				display_coins(void *mlx, void *win, int coins);
 
 /* mouse_move_bonus.c */
-int mouse_move(int x, int y, void *param);
+int					mouse_move(int x, int y, void *param);
 
 /* minimap */
 void				draw_minimap(t_config *cfg);
-
 
 /* handle_key */
 int					key_press(int key, void *param);
