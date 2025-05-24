@@ -35,6 +35,7 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
+#define MOUSESENSITIVITY 0.002
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
 #define MINIMAP_MAXSIZE 200 
@@ -135,8 +136,13 @@ typedef struct s_config
 
 // ** ENGINE ** //
 
+
+/* mouse_move_bonus.c */
+int mouse_move(int x, int y, void *param);
+
 /* minimap */
 void				draw_minimap(t_config *cfg);
+
 
 /* handle_key */
 int					key_press(int key, void *param);
