@@ -19,7 +19,7 @@ void	put_pixel(t_config *conf, int y, int color)
 
 	x = conf->win.x;
 	if (x < 0 || x >= conf->win.width || y < 0 || y >= conf->win.height)
-		return;
+		return ;
 	dst = conf->win.addr + (y * conf->win.line_len + x * (conf->win.bpp / 8));
 	*(unsigned int *)dst = color;
 }

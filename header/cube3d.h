@@ -147,6 +147,26 @@ typedef struct s_config
 
 // ** ENGINE ** //
 
+typedef struct s_minimap
+{
+	int		map_x;
+	int		map_y;
+	int		cell;
+	int		color;
+	int		scale;
+	int		origin_x;
+	int		origin_y;
+	int		player_x;
+	int		player_y;
+	int		hit_px;
+	int		hit_py;
+	int		delta_x;
+	int		delta_y;
+	int		step_x;
+	int		step_y;
+	int		x;
+	int		y;
+}			t_minimap;
 
 /* mouse_move_bonus.c */
 int mouse_move(int x, int y, void *param);

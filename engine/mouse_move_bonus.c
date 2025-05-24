@@ -14,9 +14,11 @@
 
 int	mouse_move(int x, int y, void *param)
 {
-	static int last_x = -1;
-	double rot;
-	t_config *conf = param;
+	static int	last_x = -1;
+	double		rot;
+	t_config	*conf;
+
+	conf = param;
 	(void)y;
 	if (last_x == -1)
 		last_x = x;
