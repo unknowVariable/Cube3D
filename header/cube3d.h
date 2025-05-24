@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/25 01:02:17 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/25 01:26:05 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define MOUSESENSITIVITY 0.01
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
-#define MINIMAP_MAXSIZE 200 
+# define MINIMAP_MAXSIZE 200
 
 // Store the lines of the Map
 typedef struct s_list
@@ -136,10 +136,8 @@ typedef struct s_config
 
 // ** ENGINE ** //
 
-
 /* mouse_move_bonus.c */
-int mouse_move(int x, int y, void *param);
-
+// int mouse_move(int x, int y, void *param);
 
 /* handle_key */
 int					key_press(int key, void *param);
