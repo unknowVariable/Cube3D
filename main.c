@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 03:13:40 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 04:58:32 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 	parse_file(fd, &conf);
 	close(fd);
 	init_mlx(&conf);
+	load_coin_anim(&conf); // bonus coin ani
 	init_player(&conf);
 	mlx_hook(conf.mlx.win_ptr, 17, 0, close_window, &conf);
 	mlx_hook(conf.mlx.win_ptr, 2, 1L << 0, key_press, &conf);

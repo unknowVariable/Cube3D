@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 03:24:07 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 04:56:06 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@
 # define MOUSESENSITIVITY 0.01
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
-#define MINIMAP_MAXSIZE 200 
+#define MINIMAP_MAXSIZE 200
+#define COIN_ANIM_FRAMES 6
+
 
 // Store the lines of the Map
 typedef struct s_list
@@ -116,6 +118,14 @@ typedef struct s_player
 	double			plane_y;
 }					t_player;
 
+typedef struct s_coin_anim
+{
+    void    *img[COIN_ANIM_FRAMES];
+    int     frame;
+    int     width;
+    int     height;
+}   t_coin_anim;
+
 typedef struct s_config
 {
 	char			*no_path;
@@ -132,10 +142,14 @@ typedef struct s_config
 	t_player		player;
 	t_img_data		win;
 	t_ray			ray;
+	t_coin_anim;	coin;
 }					t_config;
 
 // ** ENGINE ** //
 
+/* coin */
+void    load_coin_anim(t_config *cfg);
+void    draw_coin_anim(t_config *cfg);
 
 /* mouse_move_bonus.c */
 int mouse_move(int x, int y, void *param);
