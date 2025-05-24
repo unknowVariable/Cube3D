@@ -25,6 +25,7 @@
 # define KEY_ESC 65307
 #define MOUSESENSITIVITY 0.002
 
+
 // Store the lines of the Map
 typedef struct s_list
 {
@@ -121,7 +122,8 @@ typedef struct s_config
 
 // ** ENGINE ** //
 
-/**/
+/* mouse_move_bonus.c */
+int mouse_move(int x, int y, void *param);
 
 /* handle_key */
 int					key_press(int key, void *param);
