@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 04:54:50 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 05:05:54 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void    load_coin_anim(t_config *cfg)
 {
     char    *filenames[COIN_ANIM_FRAMES] = {
-        "./sprites/coin_0.xpm",
-        "./sprites/coin_1.xpm",
-        "./sprites/coin_2.xpm",
-        "./sprites/coin_3.xpm",
-        "./sprites/coin_4.xpm",
-        "./sprites/coin_5.xpm"
+        "./textures/coin_0.xpm",
+        "./textures/coin_1.xpm",
+        "./textures/coin_2.xpm",
+        "./textures/coin_3.xpm",
+        "./textures/coin_4.xpm",
+        "./textures/coin_5.xpm",
     };
     int     i;
 
