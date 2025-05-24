@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 04:56:06 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 05:01:04 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ typedef struct s_config
 	t_player		player;
 	t_img_data		win;
 	t_ray			ray;
-	t_coin_anim;	coin;
+	t_coin_anim		coin;
 }					t_config;
 
 // ** ENGINE ** //
