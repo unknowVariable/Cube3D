@@ -37,3 +37,4 @@ int	main(int argc, char **argv)
 	mlx_loop(conf.mlx.mlx_ptr);
 	return (0);
 }
+// test 
