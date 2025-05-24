@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 05:12:11 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 05:36:24 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,12 @@ void	draw_coin_anim(t_config *cfg)
 		cfg->coin.frame = (cfg->coin.frame + 1) % COIN_ANIM_FRAMES;
 		frame_count = 0;
 	}
+}
+
+
+void    display_coins(void *mlx, void *win, int coins)
+{
+    char buffer[32];
+    sprintf(buffer, "coin : %d", game->coin_count);
+    mlx_string_put(game->mlx, game->win, 10, 20, 0xFFFFFF, buffer);
 }

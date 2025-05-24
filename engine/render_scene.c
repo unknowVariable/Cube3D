@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 05:08:24 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 05:38:27 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,12 @@ void	render_scene(t_config *conf)
 				&tex_img.line_len, &tex_img.endian);
 		draw_column(conf, tex_img);
 	}
-
 	draw_minimap(conf);
 	mlx_put_image_to_window(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->win.img,
 		0, 0);
 	draw_coin_anim(conf); 
+	char buffer[32];
+	sprintf(buffer, "coin : %d", conf->coin_count); // Ajoute un membre coin_count à t_config
+	mlx_string_put(conf->mlx.mlx_ptr, conf->mlx.win_ptr, 10, 20, 0xFFFFFF, buffer);
 	mlx_destroy_image(conf->mlx.mlx_ptr, conf->win.img);
 }
