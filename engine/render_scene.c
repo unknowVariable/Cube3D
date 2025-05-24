@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/23 06:47:36 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/25 01:02:06 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,6 @@ void	render_scene(t_config *conf)
 				&tex_img.line_len, &tex_img.endian);
 		draw_column(conf, tex_img);
 	}
-
-	draw_minimap(conf);
-
 	mlx_put_image_to_window(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->win.img,
 		0, 0);
 	mlx_destroy_image(conf->mlx.mlx_ptr, conf->win.img);

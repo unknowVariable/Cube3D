@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 03:14:01 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/25 01:14:35 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 int	mouse_move(int x, int y, void *param)
 {
-	static int last_x = -1;
-	double rot;
-	t_config *conf = param;
+	static int  last_x;
+	double  rot;
+	t_config *conf;
 	(void)y;
+    
+    *conf = param;
+    last_x = -1;
 	if (last_x == -1)
 		last_x = x;
 	rot = (x - last_x) * MOUSESENSITIVITY;

@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 03:24:07 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/25 01:02:17 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,6 @@ typedef struct s_config
 
 /* mouse_move_bonus.c */
 int mouse_move(int x, int y, void *param);
-
-/* minimap */
-void				draw_minimap(t_config *cfg);
 
 
 /* handle_key */
