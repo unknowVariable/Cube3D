@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 22:42:05 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/24 02:55:17 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char **argv)
 	mlx_hook(conf.mlx.win_ptr, 17, 0, close_window, &conf);
 	mlx_hook(conf.mlx.win_ptr, 2, 1L << 0, key_press, &conf);
 	mlx_hook(conf.mlx.win_ptr, 3, 1L << 1, key_release, &conf);
+	mlx_hook(conf.mlx.win_ptr, 6, (1L<<6), mouse_move, &conf);
 	mlx_loop_hook(conf.mlx.mlx_ptr, game_loop, &conf);
 	mlx_loop(conf.mlx.mlx_ptr);
 	return (0);
