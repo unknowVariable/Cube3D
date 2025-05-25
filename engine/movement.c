@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 22:15:37 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/25 11:34:59 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	strafe_left(t_config *conf, double speed)
 	double	nx;
 	double	ny;
 
-	nx = conf->player.pos_x - (conf->player.plane_x + 0.44) * speed;
+	nx = conf->player.pos_x - (conf->player.plane_x) * speed;
 	ny = conf->player.pos_y - conf->player.plane_y * speed;
 	if (conf->map.map[(int)conf->player.pos_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
@@ -56,7 +56,7 @@ void	strafe_right(t_config *conf, double speed)
 	double	nx;
 	double	ny;
 
-	nx = conf->player.pos_x + (conf->player.plane_x + 0.44) * speed;
+	nx = conf->player.pos_x + (conf->player.plane_x) * speed;
 	ny = conf->player.pos_y + (conf->player.plane_y) * speed;
 	if (conf->map.map[(int)conf->player.pos_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
