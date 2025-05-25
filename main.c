@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/25 01:25:42 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/25 09:53:46 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int	main(int argc, char **argv)
 	if (fd == -1)
 		ft_exit_error("Impossible d'ouvrir le fichier");
 	ft_bzero(&conf, sizeof(t_config));
-	conf.c_color = -1;
-	conf.f_color = -1;
 	parse_file(fd, &conf);
 	close(fd);
 	init_mlx(&conf);
