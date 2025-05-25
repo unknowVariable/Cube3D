@@ -14,7 +14,6 @@ engine/init_player.c \
 engine/movement.c \
 engine/render_scene.c \
 engine/render_utils.c \
-engine/render.c \
 engine/windows_and_keys.c \
 gnl/get_next_line.c \
 parsing/check_file.c \
