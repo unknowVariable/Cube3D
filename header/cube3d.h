@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/25 01:26:05 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/25 12:07:12 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ void				rotate_view(t_config *conf, double rot);
 
 // --- Prototypes raycasting ---
 void				render_scene(t_config *conf);
-void				draw_column(t_config *conf, t_img_data tex_img);
 double				perform_dda(t_config *conf, t_ray *ray);
 double				my_abs(double x);
 void				put_pixel(t_config *conf, int y, int color);
