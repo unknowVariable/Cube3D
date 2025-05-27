@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 22:29:32 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/26 07:44:35 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	init_player(t_config *c)
 {
 	c->player.pos_x = c->map.player_x + 0.5;
 	c->player.pos_y = c->map.player_y + 0.5;
+	c->move_speed = SPEED_1;
+	c->rot_speed = SPEED_1;
 	if (c->map.player_dir == 'N')
 		set_north(c);
 	else if (c->map.player_dir == 'S')

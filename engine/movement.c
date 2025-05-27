@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 22:15:37 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/26 01:52:47 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	move_forward(t_config *conf, double speed)
 	ny = conf->player.pos_y + conf->player.dir_y * speed;
 	map_y = (int)conf->player.pos_y;
 	map_x = (int)conf->player.pos_x;
-	if (can_move_x(conf, nx) && conf->map.map[map_y][(int)nx] != '1')
+	if (conf->map.map[map_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
-	if (can_move_y(conf, ny) && conf->map.map[(int)ny][map_x] != '1')
+	if (conf->map.map[(int)ny][map_x] != '1')
 		conf->player.pos_y = ny;
 }
 
@@ -40,9 +40,9 @@ void	move_backward(t_config *conf, double speed)
 	map_x = (int)conf->player.pos_x;
 	nx = conf->player.pos_x - conf->player.dir_x * speed;
 	ny = conf->player.pos_y - conf->player.dir_y * speed;
-	if (can_move_x(conf, nx) && conf->map.map[map_y][(int)nx] != '1')
+	if (conf->map.map[map_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
-	if (can_move_y(conf, ny) && conf->map.map[(int)ny][map_x] != '1')
+	if (conf->map.map[(int)ny][map_x] != '1')
 		conf->player.pos_y = ny;
 }
 
@@ -55,11 +55,11 @@ void	strafe_left(t_config *conf, double speed)
 
 	map_y = (int)conf->player.pos_y;
 	map_x = (int)conf->player.pos_x;
-	nx = conf->player.pos_x - (conf->player.plane_x + 0.44) * speed;
+	nx = conf->player.pos_x - (conf->player.plane_x) * speed;
 	ny = conf->player.pos_y - conf->player.plane_y * speed;
-	if (can_move_x(conf, nx) && conf->map.map[map_y][(int)nx] != '1')
+	if (conf->map.map[map_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
-	if (can_move_y(conf, ny) && conf->map.map[(int)ny][map_x] != '1')
+	if (conf->map.map[(int)ny][map_x] != '1')
 		conf->player.pos_y = ny;
 }
 
@@ -72,11 +72,11 @@ void	strafe_right(t_config *conf, double speed)
 
 	map_y = (int)conf->player.pos_y;
 	map_x = (int)conf->player.pos_x;
-	nx = conf->player.pos_x + (conf->player.plane_x + 0.44) * speed;
+	nx = conf->player.pos_x + (conf->player.plane_x) * speed;
 	ny = conf->player.pos_y + (conf->player.plane_y) * speed;
-	if (can_move_x(conf, nx) && conf->map.map[map_y][(int)nx] != '1')
+	if (conf->map.map[map_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
-	if (can_move_y(conf, ny) && conf->map.map[(int)ny][map_x] != '1')
+	if (conf->map.map[(int)ny][map_x] != '1')
 		conf->player.pos_y = ny;
 }
 

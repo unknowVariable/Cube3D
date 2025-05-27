@@ -1,20 +1,41 @@
-# Nom de l'exécutable
 NAME = cube3D
 
-# Compilateur et flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I./header -I./mlx
 
-# MiniLibX Linux
 MLX_DIR = ./mlx
 MLX_LIB = $(MLX_DIR)/libmlx.a
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lbsd
 
-# Fichiers source (hors mlx)
-SRCS = $(shell find . -type f -name '*.c' ! -path "./mlx/*")
+SRCS = \
+engine/dda.c \
+engine/graphics.c \
+engine/init_player.c \
+engine/movement.c \
+engine/minimap.c \
+engine/render_scene.c \
+engine/render_utils.c \
+engine/windows_and_keys.c \
+gnl/get_next_line.c \
+parsing/check_file.c \
+parsing/parse_content.c \
+parsing/parse_map.c \
+utils/exit_error.c \
+utils/ft_atoi.c \
+utils/ft_split.c \
+utils/get_next_line_utils.c \
+utils/global_utils1.c \
+utils/global_utils2.c \
+utils/global_utils3.c \
+utils/parsingID_utils.c \
+utils/parsingID_utils2.c \
+utils/parsingMAP_utils.c \
+utils/parsingMAP_utils2.c \
+utils/parsingMAP_utils3.c \
+main.c
+
 OBJS = $(SRCS:.c=.o)
 
-# Règles
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX_LIB)

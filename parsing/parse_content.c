@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 10:24:23 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/25 09:53:36 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	parse_file(int fd, t_config *conf)
 	char	*line;
 	int		processing;
 
+	conf->f_color = -1;
+	conf->c_color = -1;
 	processing = 1;
 	line = get_next_line(fd);
 	while (line != NULL && processing)

@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 03:24:07 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/25 12:07:12 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
+# define KEY_1 65436
+# define KEY_2 65433
+# define KEY_3 65435
+# define SPEED_1 0.010
+# define SPEED_2 0.020
+# define SPEED_3 0.030
 # define MOUSESENSITIVITY 0.01
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
@@ -50,6 +56,7 @@
 #define COLOR_DARK_BROWN  0x00755428
 #define COLOR_BEIGE_CLAIR  0x00EDD8B0
 
+# define MINIMAP_MAXSIZE 200
 
 // Store the lines of the Map
 typedef struct s_list
@@ -168,12 +175,9 @@ typedef struct s_minimap
 	int		y;
 }			t_minimap;
 
+void	draw_minimap(t_config *conf);
 /* mouse_move_bonus.c */
-int mouse_move(int x, int y, void *param);
-
-/* minimap */
-void				draw_minimap(t_config *cfg);
-
+// int mouse_move(int x, int y, void *param);
 
 /* handle_key */
 int					key_press(int key, void *param);
@@ -181,8 +185,6 @@ int					key_release(int key, void *param);
 int					game_loop(void *param);
 
 /* movement.c*/
-int					can_move_x(t_config *conf, int nx);
-int					can_move_y(t_config *conf, int ny);
 void				move_forward(t_config *conf, double speed);
 void				move_backward(t_config *conf, double speed);
 void				strafe_left(t_config *conf, double speed);
@@ -190,9 +192,7 @@ void				strafe_right(t_config *conf, double speed);
 void				rotate_view(t_config *conf, double rot);
 
 // --- Prototypes raycasting ---
-void				init_ray_dir_and_delta(t_config *conf, t_ray *ray);
 void				render_scene(t_config *conf);
-void				draw_column(t_config *conf, t_img_data tex_img);
 double				perform_dda(t_config *conf, t_ray *ray);
 double				my_abs(double x);
 void				put_pixel(t_config *conf, int y, int color);
