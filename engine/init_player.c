@@ -48,6 +48,8 @@ void	init_player(t_config *c)
 {
 	c->player.pos_x = c->map.player_x + 0.5;
 	c->player.pos_y = c->map.player_y + 0.5;
+	c->move_speed = SPEED_1;
+	c->rot_speed = SPEED_1;
 	if (c->map.player_dir == 'N')
 		set_north(c);
 	else if (c->map.player_dir == 'S')
