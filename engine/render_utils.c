@@ -14,12 +14,8 @@
 
 void	put_pixel(t_config *conf, int y, int color)
 {
-	int		x;
-	char	*dst;
+	int	offset;
 
-	x = conf->win.x;
-	if (x < 0 || x >= conf->win.width || y < 0 || y >= conf->win.height)
-		return ;
-	dst = conf->win.addr + (y * conf->win.line_len + x * (conf->win.bpp / 8));
-	*(unsigned int *)dst = color;
+	offset = y * conf->win.line_len + conf->win.x * (conf->win.bpp / 8);
+	*(unsigned int *)(conf->win.addr + offset) = color;
 }

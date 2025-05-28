@@ -16,16 +16,12 @@ void	move_forward(t_config *conf, double speed)
 {
 	double	nx;
 	double	ny;
-	int		map_y;
-	int		map_x;
 
 	nx = conf->player.pos_x + conf->player.dir_x * speed;
 	ny = conf->player.pos_y + conf->player.dir_y * speed;
-	map_y = (int)conf->player.pos_y;
-	map_x = (int)conf->player.pos_x;
-	if (conf->map.map[map_y][(int)nx] != '1')
+	if (conf->map.map[(int)conf->player.pos_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
-	if (conf->map.map[(int)ny][map_x] != '1')
+	if (conf->map.map[(int)ny][(int)conf->player.pos_x] != '1')
 		conf->player.pos_y = ny;
 }
 
@@ -33,16 +29,12 @@ void	move_backward(t_config *conf, double speed)
 {
 	double	nx;
 	double	ny;
-	int		map_y;
-	int		map_x;
 
-	map_y = (int)conf->player.pos_y;
-	map_x = (int)conf->player.pos_x;
 	nx = conf->player.pos_x - conf->player.dir_x * speed;
 	ny = conf->player.pos_y - conf->player.dir_y * speed;
-	if (conf->map.map[map_y][(int)nx] != '1')
+	if (conf->map.map[(int)conf->player.pos_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
-	if (conf->map.map[(int)ny][map_x] != '1')
+	if (conf->map.map[(int)ny][(int)conf->player.pos_x] != '1')
 		conf->player.pos_y = ny;
 }
 
@@ -50,16 +42,12 @@ void	strafe_left(t_config *conf, double speed)
 {
 	double	nx;
 	double	ny;
-	int		map_y;
-	int		map_x;
 
-	map_y = (int)conf->player.pos_y;
-	map_x = (int)conf->player.pos_x;
 	nx = conf->player.pos_x - (conf->player.plane_x) * speed;
 	ny = conf->player.pos_y - conf->player.plane_y * speed;
-	if (conf->map.map[map_y][(int)nx] != '1')
+	if (conf->map.map[(int)conf->player.pos_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
-	if (conf->map.map[(int)ny][map_x] != '1')
+	if (conf->map.map[(int)ny][(int)conf->player.pos_x] != '1')
 		conf->player.pos_y = ny;
 }
 
@@ -67,16 +55,12 @@ void	strafe_right(t_config *conf, double speed)
 {
 	double	nx;
 	double	ny;
-	int		map_y;
-	int		map_x;
 
-	map_y = (int)conf->player.pos_y;
-	map_x = (int)conf->player.pos_x;
 	nx = conf->player.pos_x + (conf->player.plane_x) * speed;
 	ny = conf->player.pos_y + (conf->player.plane_y) * speed;
-	if (conf->map.map[map_y][(int)nx] != '1')
+	if (conf->map.map[(int)conf->player.pos_y][(int)nx] != '1')
 		conf->player.pos_x = nx;
-	if (conf->map.map[(int)ny][map_x] != '1')
+	if (conf->map.map[(int)ny][(int)conf->player.pos_x] != '1')
 		conf->player.pos_y = ny;
 }
 

@@ -51,16 +51,8 @@ void	init_dda_step_y(t_config *conf, t_ray *ray)
 
 void	loop_dda(t_config *conf, t_ray *ray)
 {
-	while (1)
+	while (conf->map.map[ray->map_y][ray->map_x] != '1')
 	{
-		if (ray->map_y < 0 || ray->map_y >= conf->map.height || ray->map_x < 0
-			|| ray->map_x >= (int)ft_strlen(conf->map.map[ray->map_y]))
-		{
-			ray->side = -1;
-			break ;
-		}
-		if (conf->map.map[ray->map_y][ray->map_x] == '1')
-			break ;
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
 			ray->side_dist_x += ray->delta_x;
@@ -83,7 +75,5 @@ double	perform_dda(t_config *conf, t_ray *ray)
 	loop_dda(conf, ray);
 	if (ray->side == 0)
 		return (ray->side_dist_x - ray->delta_x);
-	else if (ray->side == 1)
-		return (ray->side_dist_y - ray->delta_y);
-	return (0);
+	return (ray->side_dist_y - ray->delta_y);
 }
