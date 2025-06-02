@@ -38,7 +38,6 @@ engine/dda.c \
 engine/graphics_bonus.c \
 engine/init_player.c \
 engine/movement.c \
-engine/render_scene.c \
 engine/render_scene_bonus.c \
 engine/render_scene_bonus2.c \
 engine/render_utils.c \
