@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/25 12:05:27 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 11:42:46 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 }
 
 static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
-{
+{  
 	ray->camera_x = 2 * conf->win.x / (double)WIN_WIDTH - 1;
 	ray->ray_dir_x = conf->player.dir_x + conf->player.plane_x * ray->camera_x;
 	ray->ray_dir_y = conf->player.dir_y + conf->player.plane_y * ray->camera_x;
@@ -95,8 +95,8 @@ void	render_scene(t_config *conf)
 			&conf->win.line_len, &conf->win.endian);
 	conf->win.width = WIN_WIDTH;
 	conf->win.height = WIN_HEIGHT;
-	conf->win.x = -1;
-	while (++(conf->win.x) < WIN_WIDTH)
+	conf->win.x = 0;
+	while (conf->win.x < WIN_WIDTH)
 	{
 		cast_ray(conf, &conf->ray);
 		tex_img = get_good_tex(conf);
@@ -104,6 +104,7 @@ void	render_scene(t_config *conf)
 		tex_img.addr = mlx_get_data_addr(tex_img.img, &tex_img.bpp,
 				&tex_img.line_len, &tex_img.endian);
 		draw_column(conf, tex_img);
+		conf->win.x++;
 	}
 	mlx_put_image_to_window(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->win.img,
 		0, 0);

@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/25 09:53:46 by alix             ###   ########.fr       */
+/*   Updated: 2025/05/26 07:52:09 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,4 @@ int	main(int argc, char **argv)
 	mlx_loop(conf.mlx.mlx_ptr);
 	return (0);
 }
-// mlx_hook(conf.mlx.win_ptr, 6, (1L<<6), mouse_move, &conf);
+
