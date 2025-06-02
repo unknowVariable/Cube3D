@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 15:54:21 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 18:04:35 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,12 @@ typedef struct s_config
 }					t_config;
 
 // ** ENGINE ** //
-
-int					get_floor_tex_color(t_config *conf, int y);
-int					get_ceil_tex_color(t_config *conf, int y);
+int		get_tex_coord(int size, double f);
+int		get_tex_color_at(t_img_data *tex, double fx, double fy);
+void	get_floor_wall_xy(t_config *conf, double *wx, double *wy);
+void	draw_ceiling_column(t_config *conf, int end, double wx, double wy);
+void	draw_floor_column(t_config *conf, int start, double wx, double wy);
+void	draw_column(t_config *conf, t_img_data tex_img);
 
 /* handle_key */
 int					key_press(int key, void *param);

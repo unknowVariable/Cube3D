@@ -6,96 +6,11 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 17:22:56 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 18:02:30 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d_bonus.h"
-
-int	get_tex_color_at(t_img_data *tex, double fx, double fy)
-{
-	int		tex_x;
-	int		tex_y;
-
-	tex_x = (int)(fx * tex->width) % tex->width;
-	tex_y = (int)(fy * tex->height) % tex->height;
-	if (tex_x < 0)
-		tex_x += tex->width;
-	if (tex_y < 0)
-		tex_y += tex->height;
-	return (((int *)tex->addr)[tex->width * tex_y + tex_x]);
-}
-void	draw_column(t_config *conf, t_img_data tex_img)
-{
-	double	step;
-	int		color;
-	int		y;
-	double	current_dist;
-	double	weight;
-	double	floor_wall_x;
-	double	floor_wall_y;
-	double	fx;
-	double	fy;
-	int		ceil_y;
-
-	y = 0;
-	step = 1.0 * tex_img.height / conf->ray.line_height;
-	tex_img.tex_pos = (conf->ray.draw_start - (double)WIN_HEIGHT / 2
-			+ (double)conf->ray.line_height / 2) * step;
-
-	if (conf->ray.side == 0 && conf->ray.ray_dir_x > 0)
-	{
-		floor_wall_x = conf->ray.map_x;
-		floor_wall_y = conf->ray.map_y + conf->ray.wall_x;
-	}
-	else if (conf->ray.side == 0 && conf->ray.ray_dir_x < 0)
-	{
-		floor_wall_x = conf->ray.map_x + 1.0;
-		floor_wall_y = conf->ray.map_y + conf->ray.wall_x;
-	}
-	else if (conf->ray.side == 1 && conf->ray.ray_dir_y > 0)
-	{
-		floor_wall_x = conf->ray.map_x + conf->ray.wall_x;
-		floor_wall_y = conf->ray.map_y;
-	}
-	else
-	{
-		floor_wall_x = conf->ray.map_x + conf->ray.wall_x;
-		floor_wall_y = conf->ray.map_y + 1.0;
-	}
-
-	while (y < conf->ray.draw_start)
-	{
-		ceil_y = WIN_HEIGHT - y - 1;
-		current_dist = (double)WIN_HEIGHT / (2.0 * ceil_y - WIN_HEIGHT);
-		weight = current_dist / conf->ray.perp_wall_dist;
-		fx = weight * floor_wall_x + (1.0 - weight) * conf->player.pos_x;
-		fy = weight * floor_wall_y + (1.0 - weight) * conf->player.pos_y;
-		color = get_tex_color_at(&conf->ceil_tex, fx, fy);
-		put_pixel(conf, y, color);
-		y++;
-	}
-	while (y <= conf->ray.draw_end)
-	{
-		tex_img.y = (int)tex_img.tex_pos & (tex_img.height - 1);
-		tex_img.tex_pos += step;
-		color = *(unsigned int *)(tex_img.addr + tex_img.y * tex_img.line_len
-				+ tex_img.x * (tex_img.bpp / 8));
-		put_pixel(conf, y, color);
-		y++;
-	}
-	while (y < WIN_HEIGHT)
-	{
-		current_dist = (double)WIN_HEIGHT / (2.0 * y - WIN_HEIGHT);
-		weight = current_dist / conf->ray.perp_wall_dist;
-		fx = weight * floor_wall_x + (1.0 - weight) * conf->player.pos_x;
-		fy = weight * floor_wall_y + (1.0 - weight) * conf->player.pos_y;
-		color = get_tex_color_at(&conf->floor_tex, fx, fy);
-		put_pixel(conf, y, color);
-		y++;
-	}
-}
-
 
 static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
 {  

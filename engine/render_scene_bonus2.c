@@ -6,52 +6,102 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 15:51:53 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 18:01:27 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d_bonus.h"
 
-int	get_floor_tex_color(t_config *conf, int y)
+int	get_tex_coord(int size, double f)
 {
-	double	current_dist;
-	double	weight;
-	double	floor_x;
-	double	floor_y;
-	int		tex_x;
-	int		tex_y;
+	int	coord;
 
-	current_dist = (double)WIN_HEIGHT / (2.0 * y - WIN_HEIGHT);
-	weight = current_dist / conf->ray.perp_wall_dist;
-	floor_x = weight * conf->ray.wall_x + (1.0 - weight) * conf->player.pos_x;
-	floor_y = weight * conf->ray.wall_x + (1.0 - weight) * conf->player.pos_y;
-	tex_x = (int)(floor_x * conf->floor_tex.width) % conf->floor_tex.width;
-	tex_y = (int)(floor_y * conf->floor_tex.height) % conf->floor_tex.height;
-	if (tex_x < 0)
-		tex_x += conf->floor_tex.width;
-	if (tex_y < 0)
-		tex_y += conf->floor_tex.height;
-	return (((int *)conf->floor_tex.addr)[conf->floor_tex.width * tex_y + tex_x]);
+	coord = (int)(f * size) % size;
+	if (coord < 0)
+		coord += size;
+	return (coord);
 }
 
-int	get_ceil_tex_color(t_config *conf, int y)
+int	get_tex_color_at(t_img_data *tex, double fx, double fy)
 {
-	double	current_dist;
-	double	weight;
-	double	floor_x;
-	double	floor_y;
-	int		tex_x;
-	int		tex_y;
+	int	tex_x;
+	int	tex_y;
+	int	*data;
 
-	current_dist = (double)WIN_HEIGHT / (2.0 * y - WIN_HEIGHT);
-	weight = current_dist / conf->ray.perp_wall_dist;
-	floor_x = weight * conf->ray.wall_x + (1.0 - weight) * conf->player.pos_x;
-	floor_y = weight * conf->ray.wall_x + (1.0 - weight) * conf->player.pos_y;
-	tex_x = (int)(floor_x * conf->ceil_tex.width) % conf->ceil_tex.width;
-	tex_y = (int)(floor_y * conf->ceil_tex.height) % conf->ceil_tex.height;
-	if (tex_x < 0)
-		tex_x += conf->ceil_tex.width;
-	if (tex_y < 0)
-		tex_y += conf->ceil_tex.height;
-	return (((int *)conf->ceil_tex.addr)[conf->ceil_tex.width * tex_y + tex_x]);
+	tex_x = get_tex_coord(tex->width, fx);
+	tex_y = get_tex_coord(tex->height, fy);
+	data = (int *)tex->addr;
+	return (data[tex->width * tex_y + tex_x]);
+}
+
+void	get_floor_wall_xy(t_config *conf, double *wx, double *wy)
+{
+	if (conf->ray.side == 0 && conf->ray.ray_dir_x > 0)
+	{
+		*wx = conf->ray.map_x;
+		*wy = conf->ray.map_y + conf->ray.wall_x;
+	}
+	else if (conf->ray.side == 0)
+	{
+		*wx = conf->ray.map_x + 1.0;
+		*wy = conf->ray.map_y + conf->ray.wall_x;
+	}
+	else if (conf->ray.ray_dir_y > 0)
+	{
+		*wx = conf->ray.map_x + conf->ray.wall_x;
+		*wy = conf->ray.map_y;
+	}
+	else
+	{
+		*wx = conf->ray.map_x + conf->ray.wall_x;
+		*wy = conf->ray.map_y + 1.0;
+	}
+}
+
+void	draw_ceiling_column(t_config *conf, int end, double wx, double wy)
+{
+	int		y;
+	int		ceil_y;
+	double	dist;
+	double	weight;
+	double	fx;
+	double	fy;
+
+	y = 0;
+	while (y < end)
+	{
+		ceil_y = WIN_HEIGHT - y - 1;
+		dist = (double)WIN_HEIGHT / (2.0 * ceil_y - WIN_HEIGHT);
+		weight = dist / conf->ray.perp_wall_dist;
+		fx = weight * wx + (1.0 - weight) * conf->player.pos_x;
+		fy = weight * wy + (1.0 - weight) * conf->player.pos_y;
+		put_pixel(conf, y, get_tex_color_at(&conf->ceil_tex, fx, fy));
+		y++;
+	}
+}
+
+void	draw_column(t_config *conf, t_img_data tex_img)
+{
+	double	step;
+	double	wx;
+	double	wy;
+	int		y;
+	int		color;
+
+	get_floor_wall_xy(conf, &wx, &wy);
+	step = 1.0 * tex_img.height / conf->ray.line_height;
+	tex_img.tex_pos = (conf->ray.draw_start - (double)WIN_HEIGHT / 2
+		+ (double)conf->ray.line_height / 2) * step;
+	draw_ceiling_column(conf, conf->ray.draw_start, wx, wy);
+	y = conf->ray.draw_start;
+	while (y <= conf->ray.draw_end)
+	{
+		tex_img.y = (int)tex_img.tex_pos & (tex_img.height - 1);
+		tex_img.tex_pos += step;
+		color = *(unsigned int *)(tex_img.addr + tex_img.y * tex_img.line_len
+			+ tex_img.x * (tex_img.bpp / 8));
+		put_pixel(conf, y, color);
+		y++;
+	}
+	draw_floor_column(conf, y, wx, wy);
 }
