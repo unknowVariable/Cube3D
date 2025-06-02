@@ -6,11 +6,21 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:02:30 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 18:10:39 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d_bonus.h"
+
+int	get_tex_coord(int size, double f)
+{
+	int	coord;
+
+	coord = (int)(f * size) % size;
+	if (coord < 0)
+		coord += size;
+	return (coord);
+}
 
 static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
 {  

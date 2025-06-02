@@ -6,21 +6,11 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:01:27 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 18:10:59 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d_bonus.h"
-
-int	get_tex_coord(int size, double f)
-{
-	int	coord;
-
-	coord = (int)(f * size) % size;
-	if (coord < 0)
-		coord += size;
-	return (coord);
-}
 
 int	get_tex_color_at(t_img_data *tex, double fx, double fy)
 {
@@ -79,6 +69,27 @@ void	draw_ceiling_column(t_config *conf, int end, double wx, double wy)
 		y++;
 	}
 }
+
+void	draw_floor_column(t_config *conf, int start, double wx, double wy)
+{
+	int		y;
+	double	dist;
+	double	weight;
+	double	fx;
+	double	fy;
+
+	y = start;
+	while (y < WIN_HEIGHT)
+	{
+		dist = (double)WIN_HEIGHT / (2.0 * y - WIN_HEIGHT);
+		weight = dist / conf->ray.perp_wall_dist;
+		fx = weight * wx + (1.0 - weight) * conf->player.pos_x;
+		fy = weight * wy + (1.0 - weight) * conf->player.pos_y;
+		put_pixel(conf, y, get_tex_color_at(&conf->floor_tex, fx, fy));
+		y++;
+	}
+}
+
 
 void	draw_column(t_config *conf, t_img_data tex_img)
 {
