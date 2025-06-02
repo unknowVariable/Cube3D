@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_scene.c                                     :+:      :+:    :+:   */
+/*   render_scene_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 15:53:50 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 18:18:04 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cube3d_bonus.h"
 
-void	draw_column(t_config *conf, t_img_data tex_img)
+int	get_tex_coord(int size, double f)
 {
-	double	step;
-	int		color;
-	int		y;
+	int	coord;
 
-	y = 0;
-	step = 1.0 * tex_img.height / conf->ray.line_height;
-	tex_img.tex_pos = (conf->ray.draw_start - (double)WIN_HEIGHT / 2
-			+ (double)conf->ray.line_height / 2) * step;
-	while (y < conf->ray.draw_start)
-		put_pixel(conf, y++, conf->c_color);
-	while (y <= conf->ray.draw_end)
-	{
-		tex_img.y = (int)tex_img.tex_pos & (tex_img.height - 1);
-		tex_img.tex_pos += step;
-		color = *(unsigned int *)(tex_img.addr + tex_img.y * tex_img.line_len
-				+ tex_img.x * (tex_img.bpp / 8));
-		put_pixel(conf, y++, color);
-	}
-	while (y < WIN_HEIGHT)
-		put_pixel(conf, y++, conf->f_color);
+	coord = (int)(f * size) % size;
+	if (coord < 0)
+		coord += size;
+	return (coord);
 }
 
 static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
