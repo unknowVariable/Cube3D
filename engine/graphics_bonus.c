@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 15:38:50 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 16:33:52 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void load_floor_and_ceiling_textures(t_config *conf)
                                 &conf->floor_tex.endian);
 
     conf->ceil_tex.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,
-                                "textures/cell.xpm",
+                                "textures/ceil.xpm",
                                 &conf->ceil_tex.width, &conf->ceil_tex.height);
     conf->ceil_tex.addr = mlx_get_data_addr(conf->ceil_tex.img,
                                 &conf->ceil_tex.bpp,
