@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 16:49:50 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 17:22:56 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,6 @@ int	get_tex_color_at(t_img_data *tex, double fx, double fy)
 
 	tex_x = (int)(fx * tex->width) % tex->width;
 	tex_y = (int)(fy * tex->height) % tex->height;
-	if (tex_x < 0)
-		tex_x += tex->width;
-	if (tex_y < 0)
-		tex_y += tex->height;
-	return (((int *)tex->addr)[tex->width * tex_y + tex_x]);
-}
-
-int	get_ceil_tex_color(t_img_data *tex, double fx, double fy)
-{
-	int		tex_x;
-	int		tex_y;
-
-	tex_x = (int)(fx * tex->width) % tex->width;
-	tex_y = tex->height - 1 - ((int)(fy * tex->height) % tex->height);
 	if (tex_x < 0)
 		tex_x += tex->width;
 	if (tex_y < 0)
