@@ -33,7 +33,36 @@ utils/parsingMAP_utils2.c \
 utils/parsingMAP_utils3.c \
 main.c
 
+SRCS_BONUS = \
+engine/dda.c \
+engine/graphics_bonus.c \
+engine/init_player.c \
+engine/movement.c \
+engine/render_scene.c \
+engine/render_scene_bonus.c \
+engine/render_scene_bonus2.c \
+engine/render_utils.c \
+engine/windows_and_keys.c \
+gnl/get_next_line.c \
+parsing/check_file.c \
+parsing/parse_content.c \
+parsing/parse_map.c \
+utils/exit_error.c \
+utils/ft_atoi.c \
+utils/ft_split.c \
+utils/get_next_line_utils.c \
+utils/global_utils1.c \
+utils/global_utils2.c \
+utils/global_utils3.c \
+utils/parsingID_utils.c \
+utils/parsingID_utils2.c \
+utils/parsingMAP_utils.c \
+utils/parsingMAP_utils2.c \
+utils/parsingMAP_utils3.c \
+main.c
+
 OBJS = $(SRCS:.c=.o)
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all: $(NAME)
 
@@ -44,11 +73,14 @@ $(MLX_LIB):
 	$(MAKE) -C $(MLX_DIR)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+bonus: $(OBJS_BONUS) $(MLX_LIB)
+	$(CC) $(CFLAGS) $(OBJS_BONUS) $(MLX_FLAGS) -o $(NAME)
+
+.PHONY: all clean fclean re bonus

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_scene.c                                     :+:      :+:    :+:   */
+/*   render_scene_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 15:53:50 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 15:50:37 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cube3d_bonus.h"
 
 void	draw_column(t_config *conf, t_img_data tex_img)
 {
@@ -23,7 +23,7 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 	tex_img.tex_pos = (conf->ray.draw_start - (double)WIN_HEIGHT / 2
 			+ (double)conf->ray.line_height / 2) * step;
 	while (y < conf->ray.draw_start)
-		put_pixel(conf, y++, conf->c_color);
+		put_pixel(conf, y, get_ceil_tex_color(conf, y)), y++;
 	while (y <= conf->ray.draw_end)
 	{
 		tex_img.y = (int)tex_img.tex_pos & (tex_img.height - 1);
@@ -33,11 +33,11 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 		put_pixel(conf, y++, color);
 	}
 	while (y < WIN_HEIGHT)
-		put_pixel(conf, y++, conf->f_color);
+		put_pixel(conf, y, get_floor_tex_color(conf, y)), y++;
 }
 
 static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
-{
+{  
 	ray->camera_x = 2 * conf->win.x / (double)WIN_WIDTH - 1;
 	ray->ray_dir_x = conf->player.dir_x + conf->player.plane_x * ray->camera_x;
 	ray->ray_dir_y = conf->player.dir_y + conf->player.plane_y * ray->camera_x;
