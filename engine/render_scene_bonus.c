@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 16:38:57 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 16:41:35 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	get_tex_color_at(t_img_data *tex, double fx, double fy)
 		tex_y += tex->height;
 	return (((int *)tex->addr)[tex->width * tex_y + tex_x]);
 }
-
 void	draw_column(t_config *conf, t_img_data tex_img)
 {
 	double	step;
@@ -43,7 +42,6 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 	tex_img.tex_pos = (conf->ray.draw_start - (double)WIN_HEIGHT / 2
 			+ (double)conf->ray.line_height / 2) * step;
 
-	// Détermination du point au pied du mur selon le côté frappé
 	if (conf->ray.side == 0 && conf->ray.ray_dir_x > 0)
 	{
 		floor_wall_x = conf->ray.map_x;
@@ -72,7 +70,7 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 		fx = weight * floor_wall_x + (1.0 - weight) * conf->player.pos_x;
 		fy = weight * floor_wall_y + (1.0 - weight) * conf->player.pos_y;
 		color = get_tex_color_at(&conf->ceil_tex, fx, fy);
-		put_pixel(conf, y, conf->win.x, color);
+		put_pixel(conf, y, color);
 		y++;
 	}
 	while (y <= conf->ray.draw_end)
@@ -81,7 +79,8 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 		tex_img.tex_pos += step;
 		color = *(unsigned int *)(tex_img.addr + tex_img.y * tex_img.line_len
 				+ tex_img.x * (tex_img.bpp / 8));
-		put_pixel(conf, y++, conf->win.x, color);
+		put_pixel(conf, y, color);
+		y++;
 	}
 	while (y < WIN_HEIGHT)
 	{
@@ -90,7 +89,7 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 		fx = weight * floor_wall_x + (1.0 - weight) * conf->player.pos_x;
 		fy = weight * floor_wall_y + (1.0 - weight) * conf->player.pos_y;
 		color = get_tex_color_at(&conf->floor_tex, fx, fy);
-		put_pixel(conf, y, conf->win.x, color);
+		put_pixel(conf, y, color);
 		y++;
 	}
 }
