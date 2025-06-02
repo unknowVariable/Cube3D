@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 16:41:35 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 16:46:35 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 	double	floor_wall_y;
 	double	fx;
 	double	fy;
+	int		ceil_y;
 
 	y = 0;
 	step = 1.0 * tex_img.height / conf->ray.line_height;
@@ -65,7 +66,8 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 
 	while (y < conf->ray.draw_start)
 	{
-		current_dist = (double)WIN_HEIGHT / (2.0 * y - WIN_HEIGHT);
+		ceil_y = WIN_HEIGHT - y - 1;
+		current_dist = (double)WIN_HEIGHT / (2.0 * ceil_y - WIN_HEIGHT);
 		weight = current_dist / conf->ray.perp_wall_dist;
 		fx = weight * floor_wall_x + (1.0 - weight) * conf->player.pos_x;
 		fy = weight * floor_wall_y + (1.0 - weight) * conf->player.pos_y;
@@ -93,6 +95,8 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 		y++;
 	}
 }
+
+
 
 static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
 {  
