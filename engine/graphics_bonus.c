@@ -6,29 +6,25 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 16:33:52 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 18:18:23 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d_bonus.h"
 
-void load_floor_and_ceiling_textures(t_config *conf)
+void	load_floor_and_ceiling_textures(t_config *conf)
 {
-    conf->floor_tex.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,
-                                "textures/floor.xpm",
-                                &conf->floor_tex.width, &conf->floor_tex.height);
-    conf->floor_tex.addr = mlx_get_data_addr(conf->floor_tex.img,
-                                &conf->floor_tex.bpp,
-                                &conf->floor_tex.line_len,
-                                &conf->floor_tex.endian);
-
-    conf->ceil_tex.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,
-                                "textures/ceil.xpm",
-                                &conf->ceil_tex.width, &conf->ceil_tex.height);
-    conf->ceil_tex.addr = mlx_get_data_addr(conf->ceil_tex.img,
-                                &conf->ceil_tex.bpp,
-                                &conf->ceil_tex.line_len,
-                                &conf->ceil_tex.endian);
+	conf->floor_tex.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,
+			"textures/floor.xpm", &conf->floor_tex.width,
+			&conf->floor_tex.height);
+	conf->floor_tex.addr = mlx_get_data_addr(conf->floor_tex.img,
+			&conf->floor_tex.bpp, &conf->floor_tex.line_len,
+			&conf->floor_tex.endian);
+	conf->ceil_tex.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,
+			"textures/ceil.xpm", &conf->ceil_tex.width, &conf->ceil_tex.height);
+	conf->ceil_tex.addr = mlx_get_data_addr(conf->ceil_tex.img,
+			&conf->ceil_tex.bpp, &conf->ceil_tex.line_len,
+			&conf->ceil_tex.endian);
 }
 
 void	init_mlx(t_config *conf)
@@ -55,5 +51,5 @@ void	init_mlx(t_config *conf)
 			conf->ea_path, &conf->mlx.tex_ea.width, &conf->mlx.tex_ea.height);
 	if (!conf->mlx.tex_ea.img)
 		clean_exit(conf, "Erreur texture EA");
-    load_floor_and_ceiling_textures(conf);
+	load_floor_and_ceiling_textures(conf);
 }

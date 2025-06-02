@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:10:39 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/02 18:18:04 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	get_tex_coord(int size, double f)
 }
 
 static void	init_ray_dir_and_delta(t_config *conf, t_ray *ray)
-{  
+{
 	ray->camera_x = 2 * conf->win.x / (double)WIN_WIDTH - 1;
 	ray->ray_dir_x = conf->player.dir_x + conf->player.plane_x * ray->camera_x;
 	ray->ray_dir_y = conf->player.dir_y + conf->player.plane_y * ray->camera_x;
