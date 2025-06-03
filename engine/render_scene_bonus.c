@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:18:04 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/03 21:25:35 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_img_data	get_good_tex(t_config *conf)
 {
 	t_img_data	tex_img;
 
+	if (conf->map.map[conf->ray.map_y][conf->ray.map_x] == 'D')
+		return (conf->door_tex);
 	if (conf->ray.side == 0 && conf->ray.ray_dir_x > 0)
 		tex_img = conf->mlx.tex_ea;
 	else if (conf->ray.side == 0 && conf->ray.ray_dir_x < 0)

@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:18:23 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/03 21:28:09 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ void	load_floor_and_ceiling_textures(t_config *conf)
 	conf->ceil_tex.addr = mlx_get_data_addr(conf->ceil_tex.img,
 			&conf->ceil_tex.bpp, &conf->ceil_tex.line_len,
 			&conf->ceil_tex.endian);
+}
+
+void    init_door_texture(t_config *conf)
+{
+    conf->door_tex.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,
+                        "textures/door.xpm",
+                        &conf->door_tex.width,
+                        &conf->door_tex.height);
+    if (!conf->door_tex.img)
+        clean_exit(conf, "Door texture load failed");
+    
+    conf->door_tex.addr = mlx_get_data_addr(conf->door_tex.img,
+                          &conf->door_tex.bpp,
+                          &conf->door_tex.line_len,
+                          &conf->door_tex.endian);
 }
 
 void	init_mlx(t_config *conf)
@@ -52,4 +67,5 @@ void	init_mlx(t_config *conf)
 	if (!conf->mlx.tex_ea.img)
 		clean_exit(conf, "Erreur texture EA");
 	load_floor_and_ceiling_textures(conf);
+	init_door_texture(conf);
 }

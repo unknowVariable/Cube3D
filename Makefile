@@ -34,7 +34,7 @@ utils/parsingMAP_utils3.c \
 main.c
 
 SRCS_BONUS = \
-engine/dda.c \
+engine/dda_bonus.c \
 engine/graphics_bonus.c \
 engine/init_player.c \
 engine/movement.c \
@@ -42,10 +42,11 @@ engine/render_scene_bonus.c \
 engine/render_scene_bonus2.c \
 engine/render_utils.c \
 engine/windows_and_keys.c \
+engine/door_bonus.c \
 gnl/get_next_line.c \
 parsing/check_file.c \
 parsing/parse_content.c \
-parsing/parse_map.c \
+parsing/parse_map_bonus.c \
 utils/exit_error.c \
 utils/ft_atoi.c \
 utils/ft_split.c \
@@ -57,7 +58,8 @@ utils/parsingID_utils.c \
 utils/parsingID_utils2.c \
 utils/parsingMAP_utils.c \
 utils/parsingMAP_utils2.c \
-utils/parsingMAP_utils3.c \
+utils/parsingMAP_utils3_bonus.c \
+utils/raycast_utils_bonus.c \
 main.c
 
 OBJS = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:19:42 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/03 21:12:33 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct s_door
+{
+	int				x;
+	int				y;
+	int				is_open;
+}					t_door;
 
 // Stores Data relative to the MAP and player position
 typedef struct s_map_data
@@ -133,6 +140,8 @@ typedef struct s_config
 	int				keys[70000];
 	double			move_speed;
 	double			rot_speed;
+	int				door_count;
+	t_door			*doors;
 	t_map_data		map;
 	t_mlx			mlx;
 	t_player		player;
@@ -140,9 +149,25 @@ typedef struct s_config
 	t_ray			ray;
 	t_img_data		floor_tex;
 	t_img_data		ceil_tex;
+	t_img_data		door_tex;
 }					t_config;
 
 // ** ENGINE ** //
+
+/* door_bonus.c */
+void				init_door_texture(t_config *conf);
+void				handle_doors(t_config *conf, int map_x, int map_y,
+						int *hit);
+void				handle_player_error(t_config *conf, char *line, char *msg);
+void				process_player(t_map_data *map, char c, int xy[2]);
+void				store_map_line(t_map_data *map, t_config *conf, char *line);
+void				toggle_nearby_doors(t_config *conf);
+void				clean_doors(t_config *conf);
+
+/* raycast_utils_bonus.c*/
+t_door				*get_door_at(t_config *conf, int x, int y);
+int					is_door_collision(t_config *conf, double x, double y);
+
 int					get_tex_coord(int size, double f);
 int					get_tex_color_at(t_img_data *tex, double fx, double fy);
 void				get_floor_wall_xy(t_config *conf, double *wx, double *wy);
