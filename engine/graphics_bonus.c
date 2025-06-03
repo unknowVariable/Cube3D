@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/03 21:28:09 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/03 22:42:54 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ void	load_floor_and_ceiling_textures(t_config *conf)
 			&conf->ceil_tex.endian);
 }
 
-void    init_door_texture(t_config *conf)
+void	init_door_texture(t_config *conf)
 {
-    conf->door_tex.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,
-                        "textures/door.xpm",
-                        &conf->door_tex.width,
-                        &conf->door_tex.height);
-    if (!conf->door_tex.img)
-        clean_exit(conf, "Door texture load failed");
-    
-    conf->door_tex.addr = mlx_get_data_addr(conf->door_tex.img,
-                          &conf->door_tex.bpp,
-                          &conf->door_tex.line_len,
-                          &conf->door_tex.endian);
+	conf->door_tex.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,
+			"textures/door.xpm",
+			&conf->door_tex.width,
+			&conf->door_tex.height);
+	if (!conf->door_tex.img)
+		clean_exit(conf, "Door texture load failed");
+
+	conf->door_tex.addr = mlx_get_data_addr(conf->door_tex.img,
+			&conf->door_tex.bpp,
+			&conf->door_tex.line_len,
+			&conf->door_tex.endian);
 }
 
 void	init_mlx(t_config *conf)
