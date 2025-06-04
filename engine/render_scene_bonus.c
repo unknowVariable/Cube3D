@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/03 21:25:35 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 14:53:05 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,39 @@ void	cast_ray(t_config *conf, t_ray *ray)
 	ray->wall_x -= floor(ray->wall_x);
 }
 
-t_img_data	get_good_tex(t_config *conf)
+t_img_data get_good_tex(t_config *conf)
 {
-	t_img_data	tex_img;
+    // Vérification de sécurité
+    if (!conf || !conf->map.map || 
+        conf->ray.map_y < 0 || conf->ray.map_y >= conf->map.height ||
+        conf->ray.map_x < 0 || conf->ray.map_x >= conf->map.width)
+    {
+        return (conf->mlx.tex_no); // Texture par défaut si hors limites
+    }
 
-	if (conf->map.map[conf->ray.map_y][conf->ray.map_x] == 'D')
-		return (conf->door_tex);
-	if (conf->ray.side == 0 && conf->ray.ray_dir_x > 0)
-		tex_img = conf->mlx.tex_ea;
-	else if (conf->ray.side == 0 && conf->ray.ray_dir_x < 0)
-		tex_img = conf->mlx.tex_we;
-	else if (conf->ray.side == 1 && conf->ray.ray_dir_y > 0)
-		tex_img = conf->mlx.tex_so;
-	else
-		tex_img = conf->mlx.tex_no;
-	return (tex_img);
+    // Vérifie que les textures sont bien initialisées
+    if (!conf->mlx.tex_ea.img || !conf->mlx.tex_we.img || 
+        !conf->mlx.tex_so.img || !conf->mlx.tex_no.img)
+    {
+        ft_printf("Error: Texture not initialized\n");
+        return (conf->mlx.tex_no);
+    }
+
+    // Logique originale
+    if (conf->map.map[conf->ray.map_y][conf->ray.map_x] == 'D')
+    {
+        if (!conf->door_tex.img)
+        {
+            ft_printf("Error: Door texture not loaded\n");
+            return (conf->mlx.tex_no);
+        }
+        return (conf->door_tex);
+    }
+    
+    if (conf->ray.side == 0)
+        return (conf->ray.ray_dir_x > 0) ? conf->mlx.tex_ea : conf->mlx.tex_we;
+    else
+        return (conf->ray.ray_dir_y > 0) ? conf->mlx.tex_so : conf->mlx.tex_no;
 }
 
 void	render_scene(t_config *conf)
