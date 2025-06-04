@@ -43,6 +43,7 @@ engine/render_scene_bonus2.c \
 engine/render_utils.c \
 engine/windows_and_keys.c \
 engine/door_bonus.c \
+engine/door_hook.c \
 gnl/get_next_line.c \
 parsing/check_file.c \
 parsing/parse_content.c \
