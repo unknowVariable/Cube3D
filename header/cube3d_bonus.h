@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:19:42 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 21:37:12 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define MINIMAP_SCALE 40
 # define MINIMAP_MARGIN 0
 # define MINIMAP_MAXSIZE 200
+# define COIN_ANIM_FRAMES 6
+# define COIN_ANIM_SPEED 12
 
 // Store the lines of the Map
 typedef struct s_list
@@ -52,6 +54,14 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct s_coin_anim
+{
+	void			*img[COIN_ANIM_FRAMES];
+	int				frame;
+	int				width;
+	int				height;
+}					t_coin_anim;
 
 // Stores Data relative to the MAP and player position
 typedef struct s_map_data
@@ -131,6 +141,7 @@ typedef struct s_config
 	int				f_color;
 	int				c_color;
 	int				keys[70000];
+	int				coin_count;
 	double			move_speed;
 	double			rot_speed;
 	t_map_data		map;
@@ -140,6 +151,7 @@ typedef struct s_config
 	t_ray			ray;
 	t_img_data		floor_tex;
 	t_img_data		ceil_tex;
+	t_coin_anim		coin;
 }					t_config;
 
 // ** ENGINE ** //
