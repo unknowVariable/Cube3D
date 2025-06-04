@@ -54,7 +54,7 @@ utils/get_next_line_utils.c \
 utils/global_utils1.c \
 utils/global_utils2.c \
 utils/global_utils3.c \
-utils/parsingID_utils.c \
+utils/parsingID_utils_bonus.c \
 utils/parsingID_utils2.c \
 utils/parsingMAP_utils.c \
 utils/parsingMAP_utils2.c \
