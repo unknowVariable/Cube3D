@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/04 20:47:32 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 20:53:23 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_ray
 	double			camera_x;
 	int				map_x;
 	int				map_y;
+	int             x;   
 	double			ray_dir_x;
 	double			ray_dir_y;
 	double			delta_x;
