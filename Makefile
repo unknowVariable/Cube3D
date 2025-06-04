@@ -46,7 +46,7 @@ engine/door_bonus.c \
 engine/door_hook.c \
 gnl/get_next_line.c \
 parsing/check_file.c \
-parsing/parse_content.c \
+parsing/parse_content_bonus.c \
 parsing/parse_map_bonus.c \
 utils/exit_error.c \
 utils/ft_atoi.c \
