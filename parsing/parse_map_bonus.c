@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/03 19:36:42 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 20:42:05 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	validate_map_line(t_map_data *map, t_config *conf, char *line, int y)
 			xy[0] = x;
 			process_player(map, line[x], xy);
 		}
-		else if (!is_map_char(line[x]) && line[x] != 'D')
+		else if (!is_map_char(line[x]))
 			handle_player_error(conf, line, "Invalid map character");
 		x++;
 	}
