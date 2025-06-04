@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/04 21:43:38 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 22:22:58 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ typedef struct s_config
 }					t_config;
 
 // ** ENGINE ** //
+void	draw_coin_anim(t_config *cfg);
 void	load_coin_anim(t_config *cfg);
 int					get_tex_coord(int size, double f);
 int					get_tex_color_at(t_img_data *tex, double fx, double fy);
