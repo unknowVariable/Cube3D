@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:17:21 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 20:46:52 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_ceiling_column(t_config *conf, int end, double wx, double wy)
 		vals[1] = vals[0] / conf->ray.perp_wall_dist;
 		vals[2] = vals[1] * wx + (1.0 - vals[1]) * conf->player.pos_x;
 		vals[3] = vals[1] * wy + (1.0 - vals[1]) * conf->player.pos_y;
-		put_pixel(conf, y, get_tex_color_at(&conf->ceil_tex, vals[2], vals[3]));
+		put_pixel(conf, x,  y, get_tex_color_at(&conf->ceil_tex, vals[2], vals[3]));
 		y++;
 	}
 }
@@ -82,7 +82,7 @@ void	draw_floor_column(t_config *conf, int start, double wx, double wy)
 		weight = dist / conf->ray.perp_wall_dist;
 		fx = weight * wx + (1.0 - weight) * conf->player.pos_x;
 		fy = weight * wy + (1.0 - weight) * conf->player.pos_y;
-		put_pixel(conf, y, get_tex_color_at(&conf->floor_tex, fx, fy));
+		put_pixel(conf, x,  y, get_tex_color_at(&conf->floor_tex, fx, fy));
 		y++;
 	}
 }
@@ -107,7 +107,7 @@ void	draw_column(t_config *conf, t_img_data tex_img)
 		tex_img.tex_pos += step;
 		color = *(unsigned int *)(tex_img.addr + tex_img.y * tex_img.line_len
 				+ tex_img.x * (tex_img.bpp / 8));
-		put_pixel(conf, y, color);
+		put_pixel(conf,x,  y, color);
 		y++;
 	}
 	draw_floor_column(conf, y, wx, wy);
