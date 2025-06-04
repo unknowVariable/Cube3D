@@ -60,7 +60,7 @@ utils/parsingMAP_utils.c \
 utils/parsingMAP_utils2.c \
 utils/parsingMAP_utils3_bonus.c \
 utils/raycast_utils_bonus.c \
-main.c
+main_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
