@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/04 19:58:06 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 20:00:29 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void    clean_doors(t_config *conf)
         mlx_destroy_image(conf->mlx.mlx_ptr, conf->door_tex.img);
         conf->door_tex.img = NULL;
     }
-}       mlx_destroy_image(conf->mlx.mlx_ptr, conf->door_tex.img);
+       mlx_destroy_image(conf->mlx.mlx_ptr, conf->door_tex.img);
 }
