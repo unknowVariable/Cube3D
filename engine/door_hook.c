@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/04 19:57:12 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 19:58:06 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    handle_doors(t_config *conf, int map_x, int map_y, int *hit)
     *hit = 0;
     if (conf->map.map[map_y][map_x] == 'D')
     {
-        door = get_do_at(conf, map_x, map_y);
+        door = get_door_at(conf, map_x, map_y);
         if (door && !door->is_open)
             *hit = 1;
     }
