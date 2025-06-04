@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/04 22:24:02 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 22:24:44 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	game_loop(void *param)
 		rotate_view(conf, -conf->rot_speed);
 	else if (conf->keys[KEY_RIGHT])
 		rotate_view(conf, conf->rot_speed);
-	draw_coin_anim();
+	draw_coin_anim(conf);
 	render_scene(conf);
 	return (0);
 }
