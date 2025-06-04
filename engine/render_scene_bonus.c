@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/04 14:53:05 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/04 14:54:34 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_img_data get_good_tex(t_config *conf)
     if (!conf->mlx.tex_ea.img || !conf->mlx.tex_we.img || 
         !conf->mlx.tex_so.img || !conf->mlx.tex_no.img)
     {
-        ft_printf("Error: Texture not initialized\n");
+        printf("Error: Texture not initialized\n");
         return (conf->mlx.tex_no);
     }
 
@@ -80,7 +80,7 @@ t_img_data get_good_tex(t_config *conf)
     {
         if (!conf->door_tex.img)
         {
-            ft_printf("Error: Door texture not loaded\n");
+            printf("Error: Door texture not loaded\n");
             return (conf->mlx.tex_no);
         }
         return (conf->door_tex);
