@@ -24,8 +24,8 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-# define WIN_WIDTH 640
-# define WIN_HEIGHT 480
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 # define TEX_WIDTH 128
 # define TEX_HEIGHT 128
 # define KEY_W 119
@@ -42,9 +42,8 @@
 # define SPEED_2 0.020
 # define SPEED_3 0.030
 # define MOUSESENSITIVITY 0.01
-# define MINIMAP_SCALE 40
-# define MINIMAP_MARGIN 0
-# define MINIMAP_MAXSIZE 200
+# define COIN_ANIM_FRAMES 6
+# define COIN_ANIM_SPEED 12
 
 // Store the lines of the Map
 typedef struct s_list
@@ -122,6 +121,23 @@ typedef struct s_player
 	double			plane_y;
 }					t_player;
 
+typedef struct s_coin_anim
+{
+	void			*img[COIN_ANIM_FRAMES];
+	int				frame;
+	int				width;
+	int				height;
+}					t_coin_anim;
+
+typedef struct s_coin_draw
+{
+	char			*src_addr;
+	int				bpp;
+	int				size_line;
+	int				pos_x;
+	int				pos_y;
+}					t_coin_draw;
+
 typedef struct s_config
 {
 	char			*no_path;
@@ -140,9 +156,23 @@ typedef struct s_config
 	t_ray			ray;
 	t_img_data		floor_tex;
 	t_img_data		ceil_tex;
+	t_coin_anim		coin;
 }					t_config;
 
 // ** ENGINE ** //
+
+void				free_floor_and_ceiling(t_config *c);
+void				free_coin_images(t_config *c);
+/* coin */
+void				load_coin_anim(t_config *cfg);
+void				draw_coin_anim(t_config *cfg);
+void				display_coins(void *mlx, void *win, int coins);
+void				put_coin_with_transparency(t_config *cfg, int frame,
+						int pos_x, int pos_y);
+void				set_coin_filenames(char **filenames);
+void				load_coin_anim(t_config *cfg);
+int					should_draw_coin_pixel(int color);
+
 int					get_tex_coord(int size, double f);
 int					get_tex_color_at(t_img_data *tex, double fx, double fy);
 void				get_floor_wall_xy(t_config *conf, double *wx, double *wy);
@@ -151,6 +181,8 @@ void				draw_ceiling_column(t_config *conf, int end, double wx,
 void				draw_floor_column(t_config *conf, int start, double wx,
 						double wy);
 void				draw_column(t_config *conf, t_img_data tex_img);
+
+int					mouse_move(int x, int y, void *param);
 
 /* handle_key */
 int					key_press(int key, void *param);

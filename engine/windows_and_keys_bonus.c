@@ -1,0 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   windows_and_keys.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
+/*   Updated: 2025/05/22 22:39:55 by alix             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cube3d_bonus.h"
+
+int	close_window(void *param)
+{
+	t_config	*c;
+
+	c = (t_config *)param;
+	free_mlx_resources(c);
+	free_paths_and_colors(c);
+	if (c->map.raw_lines)
+		free_list(c->map.raw_lines);
+	if (c->map.map)
+		free_map(c->map.map);
+	exit(0);
+}
+
+void	set_speed(t_config *conf, double value)
+{
+	conf->move_speed = value;
+}
+
+int	key_press(int key, void *param)
+{
+	t_config	*conf;
+
+	conf = (t_config *)param;
+	conf->keys[key] = 1;
+	if (key == KEY_ESC)
+		close_window(param);
+	if (conf->keys[KEY_1])
+		set_speed(conf, SPEED_1);
+	if (conf->keys[KEY_2])
+		set_speed(conf, SPEED_2);
+	if (conf->keys[KEY_3])
+		set_speed(conf, SPEED_3);
+	return (0);
+}
+
+int	key_release(int key, void *param)
+{
+	t_config	*conf;
+
+	conf = (t_config *)param;
+	conf->keys[key] = 0;
+	return (0);
+}
+
+int	game_loop(void *param)
+{
+	t_config	*conf;
+
+	conf = (t_config *)param;
+	if (conf->keys[KEY_ESC])
+		close_window(conf);
+	if (conf->keys[KEY_W])
+		move_forward(conf, conf->move_speed);
+	if (conf->keys[KEY_S])
+		move_backward(conf, conf->move_speed);
+	if (conf->keys[KEY_A])
+		strafe_left(conf, conf->move_speed);
+	else if (conf->keys[KEY_D])
+		strafe_right(conf, conf->move_speed);
+	if (conf->keys[KEY_LEFT])
+		rotate_view(conf, -conf->rot_speed);
+	else if (conf->keys[KEY_RIGHT])
+		rotate_view(conf, conf->rot_speed);
+	draw_coin_anim(conf);
+	display_coins(conf->mlx.mlx_ptr, conf->mlx.win_ptr, 0);
+	render_scene(conf);
+	return (0);
+}
+// display_coins(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->coins);

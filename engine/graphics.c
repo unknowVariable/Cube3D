@@ -17,7 +17,7 @@ void	init_mlx(t_config *conf)
 	conf->mlx.mlx_ptr = mlx_init();
 	if (!conf->mlx.mlx_ptr)
 		clean_exit(conf, "Erreur MLX");
-	conf->mlx.win_ptr = mlx_new_window(conf->mlx.mlx_ptr, 640, 480, "Cube3D");
+	conf->mlx.win_ptr = mlx_new_window(conf->mlx.mlx_ptr, 1280, 720, "Cube3D");
 	if (!conf->mlx.win_ptr)
 		clean_exit(conf, "Erreur création fenêtre");
 	conf->mlx.tex_no.img = mlx_xpm_file_to_image(conf->mlx.mlx_ptr,
