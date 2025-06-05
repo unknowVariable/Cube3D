@@ -2,7 +2,8 @@ NO ./textures/cat1.xpm
 SO ./textures/cat3.xpm
 WE ./textures/cat4.xpm
 EA ./textures/cat2.xpm
-
+F 87,60,30
+C 0,0,0
 
       111111
       11C001
