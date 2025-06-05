@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 23:00:15 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:45:50 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,39 @@ void	store_map_line(t_map_data *map, t_config *cfg, char *line)
 	map->height++;
 }
 
+#include "../header/cube3d_bonus.h"
+
 void	parse_map_lines(t_map_data *map, t_config *config, int fd, char *line)
 {
-	int	y;
+	t_list	*lines;
+	int		height;
+	int		width;
+	int		len;
 
-	y = 0;
+	lines = NULL;
+	height = 0;
+	width = 0;
 	while (line)
 	{
-		if (is_only_spaces(line))
-		{
-			free(line);
-			clean_exit(config, "Ligne vide dans la carte");
-		}
-		store_map_line(map, config, line);
-		validate_map_line(map, config, line, y++);
+		len = ft_strlen(line);
+		if (len > width)
+			width = len;
+		ft_lstadd_back(&lines, ft_lstnew(ft_strdup(line)));
 		free(line);
 		line = get_next_line(fd);
+		height++;
 	}
-	if (!map->player_found)
-		clean_exit(config, "Aucun joueur trouvé dans la carte");
-	map->map = list_to_tab(map->raw_lines, map->height, config);
+	map->raw_lines = lines;
+	map->height = height;
+	map->width = width;
+
+	// Transformation en tableau 2D paddé + détection pièces
+	map->map = list_to_tab(map->raw_lines, map->height, map->width, config);
 	if (!map->map)
 		clean_exit(config, "Erreur lors de la transformation de la carte");
-	check_map_closed(map->map, map->height, map->width, config);
+
+	// Ici tu peux éventuellement free la liste chainée si elle n'est plus utile :
+	// free_list(map->raw_lines);
 }
+
+// bpmis change 

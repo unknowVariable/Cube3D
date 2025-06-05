@@ -6,13 +6,14 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 23:38:21 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:43:27 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/cube3d_bonus.h"
 
 
+// Assure-toi que ce prototype correspond à celui du header !
 char	**list_to_tab(t_list *lst, int height, int width, t_config *config)
 {
 	char	**tab;
@@ -30,16 +31,23 @@ char	**list_to_tab(t_list *lst, int height, int width, t_config *config)
 		len = ft_strlen(line);
 		tab[i] = malloc(width + 1);
 		if (!tab[i])
+		{
+			while (i--)
+				free(tab[i]);
+			free(tab);
 			return (NULL);
+		}
+		// Remplissage de chaque case, padding à droite si besoin
 		for (j = 0; j < width; j++)
 		{
 			if (j < len)
 				tab[i][j] = line[j];
 			else
-				tab[i][j] = '0'; // ou ' ', selon la logique souhaitée
+				tab[i][j] = '0'; // ou ' ' si tu veux que le padding soit vide/infranchissable
 		}
 		tab[i][width] = '\0';
-		// Ici, tu peux faire ta détection des 'C'
+
+		// Ajout des coins et remplacement du 'C' par '0'
 		for (j = 0; j < width; j++)
 		{
 			if (tab[i][j] == 'C')
@@ -54,6 +62,7 @@ char	**list_to_tab(t_list *lst, int height, int width, t_config *config)
 	tab[i] = NULL;
 	return (tab);
 }
+
 
 
 

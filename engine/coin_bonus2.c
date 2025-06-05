@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 20:36:02 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:44:08 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	add_map_coin(t_map_data *map, int x, int y)
 
 	new = malloc(sizeof(t_map_coin));
 	if (!new)
-		clean_and_exit(NULL, NULL, NULL, "Erreur malloc pièce !");
+		clean_exit(NULL, "Erreur malloc pièce !");
 	new->x = x;
 	new->y = y;
 	new->collected = 0;
