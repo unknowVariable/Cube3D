@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 21:58:29 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 22:52:48 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,37 @@ char	**list_to_tab(t_list *lst, int height, t_config *config)
 	int		j;
 	char	*line;
 
+	if (!lst || !config || height <= 0)
+		return (NULL);
+		
 	tab = malloc(sizeof(char *) * (height + 1));
 	if (!tab)
 		return (NULL);
+		
 	i = 0;
-	while (lst)
+	while (lst && i < height)
 	{
 		line = (char *)lst->content;
+		if (!line)
+		{
+			free_map(tab);
+			return (NULL);
+		}
+			
 		tab[i] = ft_strdup(line);
 		if (!tab[i])
 		{
-			while (i--)
-				free(tab[i]);
-			free(tab);
+			free_map(tab);
 			return (NULL);
 		}
+			
 		j = 0;
 		while (tab[i][j])
 		{
 			if (tab[i][j] == 'C')
 			{
-				add_map_coin(&config->map, j, i);
+				if (config->map.coins)
+					add_map_coin(&config->map, j, i);
 				tab[i][j] = '0';
 			}
 			j++;
@@ -48,9 +58,12 @@ char	**list_to_tab(t_list *lst, int height, t_config *config)
 		i++;
 		lst = lst->next;
 	}
-	tab[i] = NULL;
+	while (i <= height)
+		tab[i++] = NULL;
+		
 	return (tab);
 }
+
 
 int	is_void(char c)
 {
