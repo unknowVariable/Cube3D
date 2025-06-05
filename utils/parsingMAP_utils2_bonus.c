@@ -6,63 +6,55 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 22:52:48 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:38:21 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/cube3d_bonus.h"
 
 
-char	**list_to_tab(t_list *lst, int height, t_config *config)
+char	**list_to_tab(t_list *lst, int height, int width, t_config *config)
 {
 	char	**tab;
-	int		i;
-	int		j;
+	int		i, j;
 	char	*line;
+	int		len;
 
-	if (!lst || !config || height <= 0)
-		return (NULL);
-		
 	tab = malloc(sizeof(char *) * (height + 1));
 	if (!tab)
 		return (NULL);
-		
 	i = 0;
-	while (lst && i < height)
+	while (lst)
 	{
 		line = (char *)lst->content;
-		if (!line)
-		{
-			free_map(tab);
-			return (NULL);
-		}
-			
-		tab[i] = ft_strdup(line);
+		len = ft_strlen(line);
+		tab[i] = malloc(width + 1);
 		if (!tab[i])
-		{
-			free_map(tab);
 			return (NULL);
+		for (j = 0; j < width; j++)
+		{
+			if (j < len)
+				tab[i][j] = line[j];
+			else
+				tab[i][j] = '0'; // ou ' ', selon la logique souhaitée
 		}
-			
-		j = 0;
-		while (tab[i][j])
+		tab[i][width] = '\0';
+		// Ici, tu peux faire ta détection des 'C'
+		for (j = 0; j < width; j++)
 		{
 			if (tab[i][j] == 'C')
 			{
-				if (config->map.coins)
-					add_map_coin(&config->map, j, i);
+				add_map_coin(&config->map, j, i);
 				tab[i][j] = '0';
 			}
-			j++;
 		}
 		i++;
 		lst = lst->next;
 	}
-	while (i <= height)
-		tab[i++] = NULL;
-		
+	tab[i] = NULL;
 	return (tab);
 }
+
 
 
 int	is_void(char c)
