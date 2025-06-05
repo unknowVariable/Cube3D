@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 23:05:32 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:40:05 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,7 @@ void					ft_lstadd_back(t_list **lst, t_list *new);
 void					free_map(char **map);
 
 /* Parsing Map utils 2 */
-char					**list_to_tab(t_list *lines, int height, t_config *c);
+char	**list_to_tab(t_list *lst, int height, int width, t_config *config);
 int						is_border_void(char c);
 int						is_player_or_floor(char c);
 void					check_map_closed(char **map, int height, int width,
