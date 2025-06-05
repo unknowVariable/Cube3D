@@ -35,7 +35,7 @@ utils/parsingMAP_utils3.c \
 main.c
 
 SRCS_BONUS = \
-engine/dda.c \
+engine/dda_bonus.c \
 engine/graphics_bonus.c \
 engine/init_player.c \
 engine/movement.c \

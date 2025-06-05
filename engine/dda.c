@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/27 10:06:51 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:03:38 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	loop_dda(t_config *conf, t_ray *ray)
 		}
 	}
 }
+
+
 
 double	perform_dda(t_config *conf, t_ray *ray)
 {

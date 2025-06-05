@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 22:20:22 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:05:32 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,25 +77,29 @@ typedef struct s_map_data
 
 typedef struct s_ray
 {
-	double				camera_x;
-	int					map_x;
-	int					map_y;
-	double				ray_dir_x;
-	double				ray_dir_y;
-	double				delta_x;
-	double				delta_y;
-	double				side_dist_x;
-	double				side_dist_y;
-	int					side;
-	int					line_height;
-	int					step_x;
-	int					step_y;
-	int					draw_start;
-	int					draw_end;
-	double				perp_wall_dist;
-	double				wall_x;
-}						t_ray;
-
+    double              camera_x;
+    int                 map_x;
+    int                 map_y;
+    double              ray_dir_x;
+    double              ray_dir_y;
+    double              delta_x;       // Renommez en delta_dist_x pour cohérence
+    double              delta_y;       // Renommez en delta_dist_y pour cohérence
+    double              side_dist_x;
+    double              side_dist_y;
+    int                 side;
+    int                 line_height;
+    int                 step_x;
+    int                 step_y;
+    int                 draw_start;
+    int                 draw_end;
+    double              perp_wall_dist;
+    double              wall_x;
+    // Ajoutez ces nouveaux champs
+    double              delta_dist_x;  // Nouveau
+    double              delta_dist_y;  // Nouveau
+    int                 hit;           // Nouveau
+    char                content;       // Nouveau ('1', 'C', etc.)
+}                       t_ray;
 typedef struct s_img_data
 {
 	void				*img;
