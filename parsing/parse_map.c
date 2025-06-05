@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 23:45:50 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:53:09 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	parse_map_lines(t_map_data *map, t_config *config, int fd, char *line)
 	map->map = list_to_tab(map->raw_lines, map->height, map->width, config);
 	if (!map->map)
 		clean_exit(config, "Erreur lors de la transformation de la carte");
-
+    for (int i = 0; i < map->height; i++)
+    	printf("%s\n", map->map[i]);
 	// Ici tu peux éventuellement free la liste chainée si elle n'est plus utile :
 	// free_list(map->raw_lines);
 }
