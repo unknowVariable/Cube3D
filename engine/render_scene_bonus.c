@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:18:04 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:17:07 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,27 +72,78 @@ t_img_data	get_good_tex(t_config *conf)
 	return (tex_img);
 }
 
-void	render_scene(t_config *conf)
+void render_scene(t_config *conf)
 {
-	t_img_data	tex_img;
+    t_img_data  tex_img;
 
-	conf->win.img = mlx_new_image(conf->mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
-	conf->win.addr = mlx_get_data_addr(conf->win.img, &conf->win.bpp,
-			&conf->win.line_len, &conf->win.endian);
-	conf->win.width = WIN_WIDTH;
-	conf->win.height = WIN_HEIGHT;
-	conf->win.x = 0;
-	while (conf->win.x < WIN_WIDTH)
-	{
-		cast_ray(conf, &conf->ray);
-		tex_img = get_good_tex(conf);
-		tex_img.x = (int)(conf->ray.wall_x * (double)TEX_WIDTH);
-		tex_img.addr = mlx_get_data_addr(tex_img.img, &tex_img.bpp,
-				&tex_img.line_len, &tex_img.endian);
-		draw_column(conf, tex_img);
-		conf->win.x++;
-	}
-	mlx_put_image_to_window(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->win.img,
-		0, 0);
-	mlx_destroy_image(conf->mlx.mlx_ptr, conf->win.img);
+    // Vérifications initiales complètes
+    if (!conf || !conf->mlx.mlx_ptr || !conf->mlx.win_ptr)
+    {
+        printf("Error: MLX not initialized\n");
+        return;
+    }
+
+    // Création de l'image avec vérification
+    conf->win.img = mlx_new_image(conf->mlx.mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
+    if (!conf->win.img)
+    {
+        printf("Error: Failed to create new image\n");
+        return;
+    }
+
+    // Récupération des données de l'image
+    conf->win.addr = mlx_get_data_addr(conf->win.img, &conf->win.bpp,
+                    &conf->win.line_len, &conf->win.endian);
+    if (!conf->win.addr)
+    {
+        mlx_destroy_image(conf->mlx.mlx_ptr, conf->win.img);
+        printf("Error: Failed to get image address\n");
+        return;
+    }
+
+    // Initialisation des propriétés de la fenêtre
+    conf->win.width = WIN_WIDTH;
+    conf->win.height = WIN_HEIGHT;
+    conf->win.x = 0;
+
+    // Rendu colonne par colonne
+    while (conf->win.x < WIN_WIDTH)
+    {
+        // Lancement du raycasting
+        cast_ray(conf, &conf->ray);
+
+        // Récupération de la texture appropriée avec vérification
+        tex_img = get_good_tex(conf);
+        if (!tex_img.img)
+        {
+            conf->win.x++;
+            continue;
+        }
+
+        // Calcul de la position de la texture
+        tex_img.x = (int)(conf->ray.wall_x * (double)TEX_WIDTH);
+        if (tex_img.x < 0 || tex_img.x >= TEX_WIDTH)
+            tex_img.x = 0;
+
+        // Récupération des données de la texture
+        tex_img.addr = mlx_get_data_addr(tex_img.img, &tex_img.bpp,
+                        &tex_img.line_len, &tex_img.endian);
+        if (!tex_img.addr)
+        {
+            conf->win.x++;
+            continue;
+        }
+
+        // Rendu de la colonne
+        draw_column(conf, tex_img);
+        conf->win.x++;
+    }
+
+    // Affichage de l'image finale
+    mlx_put_image_to_window(conf->mlx.mlx_ptr, conf->mlx.win_ptr, conf->win.img, 0, 0);
+
+    // Nettoyage
+    mlx_destroy_image(conf->mlx.mlx_ptr, conf->win.img);
+    conf->win.img = NULL;
+    conf->win.addr = NULL;
 }

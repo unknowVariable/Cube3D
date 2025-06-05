@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 23:06:17 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:13:16 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,22 +94,49 @@ void loop_dda(t_config *conf, t_ray *ray)
 
 double perform_dda(t_config *conf, t_ray *ray)
 {
-    // Initialisation des delta_dist
-    if (ray->ray_dir_x == 0)
-        ray->delta_dist_x = 1e30;
-    else
-        ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
-        
-    if (ray->ray_dir_y == 0)
-        ray->delta_dist_y = 1e30;
-    else
-        ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+    // Vérifications initiales
+    if (!conf || !ray || !conf->map.map || conf->map.width <= 0 || conf->map.height <= 0)
+        return -1.0;
 
+    // Initialisation des variables
+    ray->delta_dist_x = (ray->ray_dir_x == 0) ? 1e30 : fabs(1 / ray->ray_dir_x);
+    ray->delta_dist_y = (ray->ray_dir_y == 0) ? 1e30 : fabs(1 / ray->ray_dir_y);
     ray->hit = 0;
-    loop_dda(conf, ray);
-    
+    ray->content = '0';
+
+    // Boucle DDA sécurisée
+    while (ray->hit == 0)
+    {
+        if (ray->side_dist_x < ray->side_dist_y) {
+            ray->side_dist_x += ray->delta_dist_x;
+            ray->map_x += ray->step_x;
+            ray->side = 0;
+        } else {
+            ray->side_dist_y += ray->delta_dist_y;
+            ray->map_y += ray->step_y;
+            ray->side = 1;
+        }
+
+        // Vérification des limites de la carte
+        if (ray->map_x < 0 || ray->map_x >= conf->map.width || 
+            ray->map_y < 0 || ray->map_y >= conf->map.height)
+        {
+            ray->hit = 1;
+            ray->content = '1';
+            break;
+        }
+
+        // Lecture sécurisée de la cellule
+        char cell = conf->map.map[ray->map_y][ray->map_x];
+        if (cell == '1' || cell == 'C') {
+            ray->hit = 1;
+            ray->content = cell;
+        }
+    }
+
+    // Calcul de la distance
     if (ray->side == 0)
-        return ((ray->map_x - conf->player.pos_x + (1 - ray->step_x) / 2) / ray->ray_dir_x);
+        return (ray->map_x - conf->player.pos_x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
     else
-        return ((ray->map_y - conf->player.pos_y + (1 - ray->step_y) / 2) / ray->ray_dir_y);
+        return (ray->map_y - conf->player.pos_y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
 }

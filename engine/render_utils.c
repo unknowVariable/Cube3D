@@ -6,11 +6,11 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 22:16:04 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:18:40 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cube3d_bonus.h"
 
 void	put_pixel(t_config *conf, int y, int color)
 {
