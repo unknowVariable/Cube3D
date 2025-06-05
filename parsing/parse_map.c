@@ -6,11 +6,11 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/22 11:00:56 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 23:00:15 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/cube3d.h"
+#include "../header/cube3d_bonus.h"
 
 void	handle_player_error(t_config *cfg, char *line, char *msg)
 {
