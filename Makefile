@@ -61,7 +61,7 @@ utils/global_utils3.c \
 utils/parsingID_utils.c \
 utils/parsingID_utils2.c \
 utils/parsingMAP_utils.c \
-utils/parsingMAP_utils2.c \
+utils/parsingMAP_utils2_bonus.c \
 utils/parsingMAP_utils3.c \
 main_bonus.c
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coin_bonus.c                                       :+:      :+:    :+:   */
+/*   coin_bonus2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/05/24 05:54:06 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 20:36:02 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,19 @@ void	load_coin_anim(t_config *cfg)
 		i++;
 	}
 	cfg->coin.frame = 0;
+}
+
+void	add_map_coin(t_map_data *map, int x, int y)
+{
+	t_map_coin *new;
+
+	new = malloc(sizeof(t_map_coin));
+	if (!new)
+		clean_and_exit(NULL, NULL, NULL, "Erreur malloc pièce !");
+	new->x = x;
+	new->y = y;
+	new->collected = 0;
+	new->next = map->coins;
+	map->coins = new;
+	map->coin_count++;
 }

@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/02 18:18:23 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/05 22:22:58 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ void	load_floor_and_ceiling_textures(t_config *conf)
 	conf->ceil_tex.addr = mlx_get_data_addr(conf->ceil_tex.img,
 			&conf->ceil_tex.bpp, &conf->ceil_tex.line_len,
 			&conf->ceil_tex.endian);
+}
+
+void	init_map_coins(t_map_data *map)
+{
+	map->coins = NULL;
+	map->coin_count = 0;
 }
 
 void	init_mlx(t_config *conf)
@@ -53,4 +59,5 @@ void	init_mlx(t_config *conf)
 		clean_exit(conf, "Erreur texture EA");
 	load_floor_and_ceiling_textures(conf);
 	load_coin_anim(conf);
+	init_map_coins(&conf->map);
 }
