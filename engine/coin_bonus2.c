@@ -6,7 +6,7 @@
 /*   By: alix <alix@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 05:15:00 by aconstan          #+#    #+#             */
-/*   Updated: 2025/06/05 23:44:08 by alix             ###   ########.fr       */
+/*   Updated: 2025/06/06 23:16:12 by alix             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	should_draw_coin_pixel(int color)
 		return (0);
 	return (1);
 }
+
 
 void	set_coin_filenames(char **filenames)
 {
